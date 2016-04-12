@@ -7,6 +7,9 @@ import java.util.Random;
 
 public class VerifyLogin {
 
+	// Default password-check metode, som tjekker om passwordet var korrekt
+	// skrevet. Dette er en midlertidig løsning, da det eneste password metoden
+	// tjekker for er en char-sekvens med tegnene: password
 	public boolean isPasswordCorrect(char[] input) {
 	    boolean isCorrect = true;
 	    char[] correctPassword = { 'p', 'a', 's', 's', 'w', 'o', 'r', 'd' };
@@ -23,6 +26,8 @@ public class VerifyLogin {
 	    return isCorrect;
 	}
 	
+	// ArrayList af navne, som man bliver tildelt hvis man bruger
+	// anononymt login
 	public String nameGenerator(int i){
 		
 		List<String> anonNames = new ArrayList<String>();
@@ -39,6 +44,8 @@ public class VerifyLogin {
 		return name;
 	}
 	
+	// Opretter et tilfældigt tal (mellem 1 og 8), bruges til at 
+	// vælge et af navnene fra ArrayListen ovenfor
 	public int randomInteger(int min, int max) {
 		Random rand = new Random();
 	    int randomNum = rand.nextInt(max - min + 1) + min;

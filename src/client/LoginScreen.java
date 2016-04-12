@@ -93,26 +93,29 @@ public class LoginScreen extends JPanel implements ActionListener {
 			char[] passInput = password.getPassword();
 			
 			if(verify.isPasswordCorrect(passInput)){
-				System.out.println("'Log in' button pressed!");
 				username = txtUsername.getText();
 				HomeScreen homescreen = new HomeScreen();
 				homescreen.HomeScreen();
 				homescreen.setVisible(true);
 				frame.setVisible(false);
+
+				System.out.println("'Log in' button pressed!");
 			} else {
 				JOptionPane.showMessageDialog(frame, "Bad password, try again");
+				System.out.println("Incorrect password!");
 			}
 		}
 		
 		if(cmd.equals("Login as guest")){
 			int i = verify.randomInteger(1, 8);
-			System.out.println("'Login as guest' button pressed!");
 			username = verify.nameGenerator(i);
 			HomeScreen homescreen = new HomeScreen();
 			homescreen.HomeScreen();
 			homescreen.setVisible(true);
 			frame.setVisible(false);
 			frame.dispose();
+	
+			System.out.println("'Login as guest' button pressed!");
 		}
 	}
 }
