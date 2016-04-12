@@ -99,7 +99,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 				homescreen.setVisible(true);
 				frame.setVisible(false);
 
-				System.out.println("'Log in' button pressed!");
+				System.out.println("Log in was pressed");
 			} else {
 				JOptionPane.showMessageDialog(frame, "Bad password, try again");
 				System.out.println("Incorrect password!");
@@ -115,7 +115,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 			frame.setVisible(false);
 			frame.dispose();
 	
-			System.out.println("'Login as guest' button pressed!");
+			System.out.println("Login as guest was pressed!");
 		}
 	}
 }

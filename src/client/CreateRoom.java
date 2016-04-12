@@ -63,7 +63,7 @@ public class CreateRoom extends JPanel implements ActionListener {
 		
 		/*
 		 * TODO!
-		 * Der skal oprettes nogle tekstfelter, hvori kan skal skrive:
+		 * Der skal oprettes nogle tekstfelter, hvori der skal tilføjes:
 		 * 	Room-navn
 		 * 	Et spørgsmål
 		 * 	Evt(?)

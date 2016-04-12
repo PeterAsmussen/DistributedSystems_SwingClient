@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,16 +8,22 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class HomeScreen extends JPanel implements ActionListener{
 
 	private JFrame frame;
+	private JList roomList;
+	private JPanel listPanel;
+	private JScrollPane scrollPanel;
 	public JButton btnExit, btnCreateRoom;
 	public LoginScreen loginscreen;
 	String username = loginscreen.username;
+	
 
 	/**
 	 * Launch the application.
@@ -74,6 +81,18 @@ public class HomeScreen extends JPanel implements ActionListener{
 		btnCreateRoom.setText("Create room");
 		btnCreateRoom.addActionListener(this);
 		frame.getContentPane().add(btnCreateRoom);
+		
+		/*
+		 * STILL IN PROGRESS!
+		 */
+		//Creating list of rooms
+		String listTest[] = {"Room 1", "Room 2", "Room 3", "Room 4", "Room 5", "Room 6", "Room 7"};
+		roomList = new JList(listTest);
+		frame.getContentPane().add(roomList);
+		scrollPanel = new JScrollPane(roomList);
+		
+		Container contentPane = frame.getContentPane();
+		contentPane.add(scrollPanel);
 		
 		/*
 		 * TODO!
