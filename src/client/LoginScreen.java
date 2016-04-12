@@ -1,17 +1,20 @@
 package client;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 
-public class LoginScreen {
+public class LoginScreen implements ActionListener {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtUsername;
+	private JPasswordField password;
 	private JButton btnLogIn;
 	private JButton btnLoginAsGuest;
 
@@ -47,15 +50,15 @@ public class LoginScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(160, 82, 130, 26);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		txtUsername = new JTextField();
+		txtUsername.setBounds(160, 82, 130, 26);
+		frame.getContentPane().add(txtUsername);
+		txtUsername.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(160, 136, 130, 26);
-		frame.getContentPane().add(textField_1);
+		password = new JPasswordField();
+		password.setColumns(10);
+		password.setBounds(160, 136, 130, 26);
+		frame.getContentPane().add(password);
 		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setBounds(163, 64, 92, 16);
@@ -72,5 +75,22 @@ public class LoginScreen {
 		btnLoginAsGuest = new JButton("Login as guest");
 		btnLoginAsGuest.setBounds(160, 211, 130, 29);
 		frame.getContentPane().add(btnLoginAsGuest);
+		
+		
+		password.setActionCommand("Log in");
+		btnLogIn.addActionListener(this);
+	}
+	
+	public void actionPerformed(ActionEvent e){
+		String cmd = e.getActionCommand();
+		
+		if(cmd.equals("Log in")){
+			JFrame frame = new JFrame ("HomeScreen");
+            frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(btnLogIn, new HomeScreen());
+            frame.pack();
+            frame.setVisible (true);
+		}
+		
 	}
 }
