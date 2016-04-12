@@ -1,19 +1,23 @@
 package client;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-public class HomeScreen {
+public class HomeScreen extends JPanel implements ActionListener{
 
 	private JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void HomeScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,5 +49,11 @@ public class HomeScreen {
 		JLabel lblAvailableRooms = DefaultComponentFactory.getInstance().createTitle("Available rooms");
 		lblAvailableRooms.setBounds(19, 20, 122, 16);
 		frame.getContentPane().add(lblAvailableRooms);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
