@@ -8,13 +8,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class CreateRoom extends JPanel implements ActionListener {
 
 	private JFrame frame;
-	public JButton btnExit;
+	public JButton btnExit, btnDone, btnBack;
+	public JLabel lblRoomName, lblTopicQuestion;
+	public JTextArea txtRoomName, txtTopicQuestion;
+	private Test_LocalRooms testrooms = new Test_LocalRooms();
+	HomeScreen homescreen;
 
 	/**
 	 * Launch the application.
@@ -61,6 +66,13 @@ public class CreateRoom extends JPanel implements ActionListener {
 		btnExit.addActionListener(this);
 		frame.getContentPane().add(btnExit);
 		
+		//Done-button
+		btnDone = new JButton();
+		btnDone.setBounds(20, 170, 100, 20);
+		btnDone.setText("Done");
+		btnDone.addActionListener(this);
+		frame.getContentPane().add(btnDone);
+		
 		/*
 		 * TODO!
 		 * Der skal oprettes nogle tekstfelter, hvori der skal tilføjes:
@@ -70,6 +82,24 @@ public class CreateRoom extends JPanel implements ActionListener {
 		 * Når rummet er oprettet, skal der sendes en put/post-besked til 
 		 * Firebase. Herefter skal man sendes tilbage til 'HomeScreen'-vinduet
 		 */
+		
+		lblRoomName = new JLabel();
+		lblRoomName.setText("Enter Room name");
+		lblRoomName.setBounds(20, 40, 200, 20);
+		lblTopicQuestion = new JLabel();
+		lblTopicQuestion.setText("Enter a topic/question");
+		lblTopicQuestion.setBounds(20, 120, 200, 20);
+		
+		txtRoomName = new JTextArea();
+		txtRoomName.setBounds(20, 65, 500, 20);
+		txtTopicQuestion = new JTextArea();
+		txtTopicQuestion.setBounds(20, 145, 500, 20);
+		
+		frame.getContentPane().add(txtRoomName);
+		frame.getContentPane().add(lblRoomName);
+		frame.getContentPane().add(txtTopicQuestion);
+		frame.getContentPane().add(lblTopicQuestion);
+		
 	}
 
 	@Override
@@ -82,7 +112,17 @@ public class CreateRoom extends JPanel implements ActionListener {
 			frame.dispose();
 			System.exit(0);
 		}
-		
+		if(cmd.equals("Done")){
+			testrooms.roomIncrement(txtRoomName.getText());
+			testrooms.questionIncrement(txtTopicQuestion.getText());
+			System.out.println("Done-button was pressed:");
+			System.out.println(testrooms.getRooms().toString());
+			System.out.println(testrooms.getQuestions().toString());
+			frame.setVisible(false);
+			frame.dispose();
+			homescreen = new HomeScreen();
+			homescreen.HomeScreen();
+			homescreen.setVisible(true);
+		}
 	}
-
 }

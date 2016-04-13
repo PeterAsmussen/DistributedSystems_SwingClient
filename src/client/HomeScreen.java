@@ -1,6 +1,5 @@
 package client;
 
-import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +50,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		//Create the frame
 		frame = new JFrame();
@@ -86,13 +86,9 @@ public class HomeScreen extends JPanel implements ActionListener{
 		 * STILL IN PROGRESS!
 		 */
 		//Creating list of rooms
-		String listTest[] = {"Room 1", "Room 2", "Room 3", "Room 4", "Room 5", "Room 6", "Room 7"};
-		roomList = new JList(listTest);
-		frame.getContentPane().add(roomList);
-		scrollPanel = new JScrollPane(roomList);
 		
-		Container contentPane = frame.getContentPane();
-		contentPane.add(scrollPanel);
+		scrollPanel = new JScrollPane(roomList);
+		frame.getContentPane().add(scrollPanel);
 		
 		/*
 		 * TODO!
