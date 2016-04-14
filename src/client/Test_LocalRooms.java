@@ -1,20 +1,13 @@
 package client;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Test_LocalRooms {
 
+	ArrayList<String> rooms = new ArrayList<String>();
+	ArrayList<String> questions = new ArrayList<String>();
 	
-	List<String> rooms = new ArrayList<String>();
-	List<String> questions = new ArrayList<String>();
-	
-	public void roomIncrement(String roomName){
-		rooms.add(roomName);		
-	}
-	
-	
-	public List<String> getRooms() {
+	public ArrayList<String> getRooms() {
 		return rooms;
 	}
 
@@ -28,7 +21,7 @@ public class Test_LocalRooms {
 		questions.add(question); 
 	}
 	
-	public List<String> getQuestions(){
+	public ArrayList<String> getQuestions(){
 		return questions;
 	}
 }

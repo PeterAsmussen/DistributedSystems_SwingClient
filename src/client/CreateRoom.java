@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -95,10 +97,12 @@ public class CreateRoom extends JPanel implements ActionListener {
 		txtTopicQuestion = new JTextArea();
 		txtTopicQuestion.setBounds(20, 145, 500, 20);
 		
+		
 		frame.getContentPane().add(txtRoomName);
 		frame.getContentPane().add(lblRoomName);
 		frame.getContentPane().add(txtTopicQuestion);
 		frame.getContentPane().add(lblTopicQuestion);
+	
 		
 	}
 
@@ -113,11 +117,10 @@ public class CreateRoom extends JPanel implements ActionListener {
 			System.exit(0);
 		}
 		if(cmd.equals("Done")){
-			testrooms.roomIncrement(txtRoomName.getText());
-			testrooms.questionIncrement(txtTopicQuestion.getText());
+			testrooms.rooms.add(txtRoomName.getText());
 			System.out.println("Done-button was pressed:");
-			System.out.println(testrooms.getRooms().toString());
-			System.out.println(testrooms.getQuestions().toString());
+			System.out.println(testrooms.rooms);
+			
 			frame.setVisible(false);
 			frame.dispose();
 			homescreen = new HomeScreen();

@@ -3,6 +3,8 @@ package client;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,8 +21,9 @@ public class HomeScreen extends JPanel implements ActionListener{
 	private JList roomList;
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
-	public JButton btnExit, btnCreateRoom;
+	public JButton btnExit, btnCreateRoom, btnUpdate;
 	public LoginScreen loginscreen;
+	private Test_LocalRooms testrooms = new Test_LocalRooms();
 	String username = loginscreen.username;
 	
 
@@ -82,13 +85,16 @@ public class HomeScreen extends JPanel implements ActionListener{
 		btnCreateRoom.addActionListener(this);
 		frame.getContentPane().add(btnCreateRoom);
 		
+		//Update-button
+		btnUpdate = new JButton();
+		btnUpdate.setBounds(520, 60, 100, 20);
+		btnUpdate.setText("Update");
+		btnUpdate.addActionListener(this);
+		frame.getContentPane().add(btnUpdate);
+		
 		/*
 		 * STILL IN PROGRESS!
 		 */
-		//Creating list of rooms
-		
-		scrollPanel = new JScrollPane(roomList);
-		frame.getContentPane().add(scrollPanel);
 		
 		/*
 		 * TODO!
@@ -96,6 +102,24 @@ public class HomeScreen extends JPanel implements ActionListener{
 		 * Derudover skal man kunne klikke på én af disse, og blive sendt videre
 		 * til 'SelectedRoom'-siden
 		 */
+		
+		/*
+		 * To easily add elements to the testrooms.rooms[], simply
+		 * make a for-loop, taking each element in the database
+		 * and put them
+		 */
+		
+				
+		JList listOfRooms = new JList(testrooms.getRooms().toArray());
+		listOfRooms.setVisibleRowCount(5);
+	
+		JList listOfQuestions = new JList();
+		
+		JScrollPane listScrollPane = new JScrollPane(listOfRooms);
+		listScrollPane.setBounds(19, 60, 500, 400);
+		
+		frame.getContentPane().add(listScrollPane);
+		
 		
 	}
 
@@ -116,9 +140,14 @@ public class HomeScreen extends JPanel implements ActionListener{
 			frame.dispose();
 			CreateRoom createroom = new CreateRoom();
 			createroom.CreateRoom();
-			createroom.setVisible(true);
-			
+			createroom.setVisible(true);	
 		}
 		
+		if(cmd.equals("Update")){
+			JList<ArrayList> newList = new JList(testrooms.getRooms().toArray());
+			JScrollPane listScrollPane = new JScrollPane(newList);
+			listScrollPane.setBounds(19, 60, 500, 400);
+			frame.getContentPane().add(listScrollPane);
+		}
 	}
 }
