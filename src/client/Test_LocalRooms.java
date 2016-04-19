@@ -7,6 +7,10 @@ public class Test_LocalRooms {
 	ArrayList<String> rooms = new ArrayList<String>();
 	ArrayList<String> questions = new ArrayList<String>();
 	
+	public void roomIncrement(String input){
+		rooms.add(input);
+	}
+	
 	public ArrayList<String> getRooms() {
 		return rooms;
 	}

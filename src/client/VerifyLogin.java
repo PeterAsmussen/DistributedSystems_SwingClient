@@ -39,6 +39,7 @@ public class VerifyLogin {
 		anonNames.add("Anonymous Armadillo");
 		anonNames.add("Anonymous Sloth");
 		anonNames.add("Anonymous Ostrich");
+		anonNames.add("Anonymous Falcon");
 		
 		String name = (String)anonNames.get(i);
 		return name;
