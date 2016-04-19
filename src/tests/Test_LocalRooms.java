@@ -1,10 +1,10 @@
-package client;
+package tests;
 
 import java.util.ArrayList;
 
 public class Test_LocalRooms {
 
-	ArrayList<String> rooms = new ArrayList<String>();
+	public ArrayList<String> rooms = new ArrayList<String>();
 	ArrayList<String> questions = new ArrayList<String>();
 	
 	public void roomIncrement(String input){

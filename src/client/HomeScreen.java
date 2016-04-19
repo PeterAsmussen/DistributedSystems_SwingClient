@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import tests.Test_LocalRooms;
+
 public class HomeScreen extends JPanel implements ActionListener{
 
 	private JFrame frame;

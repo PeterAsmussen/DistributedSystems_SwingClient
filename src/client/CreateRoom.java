@@ -14,6 +14,8 @@ import javax.swing.JTextArea;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import tests.Test_LocalRooms;
+
 public class CreateRoom extends JPanel implements ActionListener {
 
 	private JFrame frame;

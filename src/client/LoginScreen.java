@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import tests.VerifyLogin;
+
 public class LoginScreen extends JPanel implements ActionListener {
 
 	
