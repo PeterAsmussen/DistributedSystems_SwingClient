@@ -23,9 +23,8 @@ public class HomeScreen extends JPanel implements ActionListener{
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
 	public JButton btnExit, btnCreateRoom, btnUpdate;
-	public LoginScreen loginscreen;
 	private Test_LocalRooms testrooms = new Test_LocalRooms();
-	String username = loginscreen.username;
+	LoginScreen loginscreen = new LoginScreen();
 	
 	/**
 	 * Create the application.
@@ -51,9 +50,6 @@ public class HomeScreen extends JPanel implements ActionListener{
 		JLabel lblAvailableRooms = DefaultComponentFactory.getInstance().createTitle("Available rooms for:");
 		lblAvailableRooms.setBounds(19, 20, 250, 16);
 		labelPanel.add(lblAvailableRooms);
-		JLabel lblUser = new JLabel(username);
-		lblUser.setBounds(39, 20, 250, 16);
-		labelPanel.add(lblUser);
 		
 		//Exit-button, top right corner
 		btnExit = new JButton();

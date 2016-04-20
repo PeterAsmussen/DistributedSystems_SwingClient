@@ -22,12 +22,11 @@ public class Connection {
 		AtomicBoolean success = new AtomicBoolean(false);
 		AtomicBoolean done = new AtomicBoolean(false);
 		
+		System.out.println("preThread");
 		new Thread(new Runnable() {
+			
             public void run() {
                 try {
-                    URL url = new URL("http://52.58.137.252:8080/HelpingTeacherServer2/HTSservlet");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    
                     JSONObject obj = new JSONObject();
                     try {
                         obj.put("TASK", "loginauth");
@@ -37,21 +36,19 @@ public class Connection {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    String combinedMessage = obj.toString();
-                    System.out.printf("CombinedMessage", combinedMessage);
-                    //http://developer.android.com/reference/java/net/HttpURLConnection.html
-                    //connection.setDoOutput(true);
-                    //I would like to get a confirmed login - perhaps session ID
-                    connection.setRequestMethod("GET");
-                    OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-                    out.write(combinedMessage);
-                    out.close();
-
+                    String combinedMessage = "?logininfo=" + obj.toString();
+                    System.out.println("CombinedMessage"+ combinedMessage);
+                    URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet"+combinedMessage);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                     String returnString = "";
                     returnString = in.readLine();
-                    if (returnString.equals("Succes")) {
+                    
+                    System.out.println("returnString: "+returnString);
+                    
+                    if (returnString.equals("loginsucces")) {
+                    	System.out.println("Retur-stringen er kommet");
                     	success.set(true);
                     	done.set(true);
                     } else {
@@ -63,14 +60,15 @@ public class Connection {
                     in.close();
 
                 } catch (Exception e) {
-                	System.out.printf("Exception", e.toString());
-                }
+                	e.printStackTrace();    
+                	}
             }
-		});
+		}).start();
 	
 		while(!done.get()){
+			System.out.println("While-løkken virker");
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

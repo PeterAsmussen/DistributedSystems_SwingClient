@@ -27,7 +27,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 	public JPasswordField txtPassword;
 	private JButton btnLogIn;
 	private JButton btnLoginAsGuest;
-	public static String username, password;
+	public String username, password;
 	VerifyLogin verify = new VerifyLogin();
 	Connection connection = new Connection();
 
@@ -72,16 +72,17 @@ public class LoginScreen extends JPanel implements ActionListener {
 		loginPanel.add(btnPanel);
 		btnPanel.add(btnLogIn);
 		btnPanel.add(btnLoginAsGuest);
+	
 	}
 	
 	public void actionPerformed(ActionEvent e){
 		String cmd = e.getActionCommand();
 		
 		if(cmd.equals("Log in")){
-			//char[] passInput = password.getPassword();
 			
 			username = txtUsername.getText();
-			password = txtPassword.toString();
+			String password = String.valueOf(txtPassword.getPassword());
+		
 			if(connection.login(username,password)){
 				HomeScreen homescreen = new HomeScreen();
 				MainWindow.frame.getContentPane().add(homescreen.homePanel);
