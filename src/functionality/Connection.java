@@ -15,9 +15,9 @@ import client.LoginScreen;
 
 public class Connection {
 	
-	LoginScreen loginscreen = new LoginScreen();
+	
 
-	public boolean login(String username, JPasswordField txtPassword){
+	public boolean login(String username, String password){
 		
 		AtomicBoolean success = new AtomicBoolean(false);
 		AtomicBoolean done = new AtomicBoolean(false);
@@ -31,8 +31,8 @@ public class Connection {
                     JSONObject obj = new JSONObject();
                     try {
                         obj.put("TASK", "loginauth");
-                        obj.put("USERNAME", loginscreen.txtUsername.getText().toString());
-                        obj.put("PASSWORD", loginscreen.txtPassword.toString());
+                        obj.put("USERNAME", username);
+                        obj.put("PASSWORD", password);
 
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -82,7 +82,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 			
 			username = txtUsername.getText();
 			password = txtPassword.toString();
-			if(connection.login(username,txtPassword)){
+			if(connection.login(username,password)){
 				HomeScreen homescreen = new HomeScreen();
 				MainWindow.frame.getContentPane().add(homescreen.homePanel);
 				loginPanel.setVisible(false);
