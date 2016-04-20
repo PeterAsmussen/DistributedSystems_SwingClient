@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,7 +18,11 @@ import tests.VerifyLogin;
 public class LoginScreen extends JPanel implements ActionListener {
 
 	
-	private JFrame frame;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public JPanel loginPanel;
 	private JTextField txtUsername;
 	private JPasswordField password;
 	private JButton btnLogIn;
@@ -25,25 +30,6 @@ public class LoginScreen extends JPanel implements ActionListener {
 	public static String username;
 	VerifyLogin verify = new VerifyLogin();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginScreen window = new LoginScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public LoginScreen() {
 		initialize();
 	}
@@ -52,40 +38,35 @@ public class LoginScreen extends JPanel implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		loginPanel = new JPanel();
+		JPanel btnPanel = new JPanel();
+		loginPanel.setBounds(100, 100, 450, 300);
+		loginPanel.setLayout(new GridLayout(0,1));
+		btnPanel.setLayout(new GridLayout(0,1));
+		
 		
 		txtUsername = new JTextField();
-		txtUsername.setBounds(160, 82, 130, 26);
-		frame.getContentPane().add(txtUsername);
-		txtUsername.setColumns(10);
-		
+		txtUsername.setColumns(10);	
 		password = new JPasswordField();
 		password.setColumns(10);
-		password.setBounds(160, 136, 130, 26);
-		frame.getContentPane().add(password);
 		
 		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(163, 64, 92, 16);
-		frame.getContentPane().add(lblUsername);
-		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(163, 120, 92, 16);
-		frame.getContentPane().add(lblPassword);
 		
 		btnLogIn = new JButton("Log in");
-		btnLogIn.setBounds(160, 174, 130, 29);
-		frame.getContentPane().add(btnLogIn);
-		
-		btnLoginAsGuest = new JButton("Login as guest");
-		btnLoginAsGuest.setBounds(160, 211, 130, 29);
-		frame.getContentPane().add(btnLoginAsGuest);
+		btnLoginAsGuest = new JButton("Login as guest");		
 		
 		password.setActionCommand("Log in");
 		btnLogIn.addActionListener(this);
 		btnLoginAsGuest.addActionListener(this);
+		
+		loginPanel.add(lblUsername);
+		loginPanel.add(txtUsername);
+		loginPanel.add(lblPassword);
+		loginPanel.add(password);
+		loginPanel.add(btnPanel);
+		btnPanel.add(btnLogIn);
+		btnPanel.add(btnLoginAsGuest);
 	}
 	
 	public void actionPerformed(ActionEvent e){
@@ -97,13 +78,12 @@ public class LoginScreen extends JPanel implements ActionListener {
 			if(verify.isPasswordCorrect(passInput)){
 				username = txtUsername.getText();
 				HomeScreen homescreen = new HomeScreen();
-				homescreen.HomeScreen();
-				homescreen.setVisible(true);
-				frame.setVisible(false);
+				MainWindow.frame.getContentPane().add(homescreen.homePanel);
+				loginPanel.setVisible(false);
 
 				System.out.println("Log in was pressed");
 			} else {
-				JOptionPane.showMessageDialog(frame, "Bad password, try again");
+				JOptionPane.showMessageDialog(loginPanel, "Bad password, try again");
 				System.out.println("Incorrect password!");
 			}
 		}
@@ -112,10 +92,9 @@ public class LoginScreen extends JPanel implements ActionListener {
 			int i = verify.randomInteger(1, 8);
 			username = verify.nameGenerator(i);
 			HomeScreen homescreen = new HomeScreen();
-			homescreen.HomeScreen();
-			homescreen.setVisible(true);
-			frame.setVisible(false);
-			frame.dispose();
+			MainWindow.frame.getContentPane().add(homescreen.homePanel);
+			loginPanel.setVisible(false);
+			
 	
 			System.out.println("Login as guest was pressed!");
 		}

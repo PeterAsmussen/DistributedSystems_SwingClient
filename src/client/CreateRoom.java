@@ -18,28 +18,16 @@ import tests.Test_LocalRooms;
 
 public class CreateRoom extends JPanel implements ActionListener {
 
-	private JFrame frame;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public JPanel createroomPanel;
 	public JButton btnExit, btnDone, btnBack;
 	public JLabel lblRoomName, lblTopicQuestion;
 	public JTextArea txtRoomName, txtTopicQuestion;
 	private Test_LocalRooms testrooms = new Test_LocalRooms();
 	HomeScreen homescreen;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void CreateRoom() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreateRoom window = new CreateRoom();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -53,29 +41,27 @@ public class CreateRoom extends JPanel implements ActionListener {
 	 */
 	private void initialize() {
 		//Create the frame
-		frame = new JFrame();
-		frame.setBounds(200, 200, 900, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
+		createroomPanel = new JPanel();
+		createroomPanel.setBounds(200, 200, 900, 600);
+	
 		//Title label, top left corner
 		JLabel lblCreateRoom = DefaultComponentFactory.getInstance().createTitle("Create new room");
 		lblCreateRoom.setBounds(19, 20, 250, 16);
-		frame.getContentPane().add(lblCreateRoom);
+		createroomPanel.add(lblCreateRoom);
 		
 		//Exit-button, top right corner
 		btnExit = new JButton();
 		btnExit.setBounds(780, 20, 100, 20);
 		btnExit.setText("Exit");
 		btnExit.addActionListener(this);
-		frame.getContentPane().add(btnExit);
+		createroomPanel.add(btnExit);
 		
 		//Done-button
 		btnDone = new JButton();
 		btnDone.setBounds(20, 170, 100, 20);
 		btnDone.setText("Done");
 		btnDone.addActionListener(this);
-		frame.getContentPane().add(btnDone);
+		createroomPanel.add(btnDone);
 		
 		/*
 		 * TODO!
@@ -100,10 +86,10 @@ public class CreateRoom extends JPanel implements ActionListener {
 		txtTopicQuestion.setBounds(20, 145, 500, 20);
 		
 		
-		frame.getContentPane().add(txtRoomName);
-		frame.getContentPane().add(lblRoomName);
-		frame.getContentPane().add(txtTopicQuestion);
-		frame.getContentPane().add(lblTopicQuestion);
+		createroomPanel.add(txtRoomName);
+		createroomPanel.add(lblRoomName);
+		createroomPanel.add(txtTopicQuestion);
+		createroomPanel.add(lblTopicQuestion);
 	
 		
 	}
@@ -114,8 +100,7 @@ public class CreateRoom extends JPanel implements ActionListener {
 		
 		if(cmd.equals("Exit")){
 			System.out.println("Exit-button was pressed, shutting down...");
-			frame.setVisible(false);
-			frame.dispose();
+			createroomPanel.setVisible(false);
 			System.exit(0);
 		}
 		if(cmd.equals("Done")){
@@ -123,10 +108,8 @@ public class CreateRoom extends JPanel implements ActionListener {
 			System.out.println("Done-button was pressed:");
 			System.out.println(testrooms.rooms);
 			
-			frame.setVisible(false);
-			frame.dispose();
+			createroomPanel.setVisible(false);
 			homescreen = new HomeScreen();
-			homescreen.HomeScreen();
 			homescreen.setVisible(true);
 		}
 	}

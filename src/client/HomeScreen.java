@@ -1,13 +1,12 @@
 package client;
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -19,7 +18,7 @@ import tests.Test_LocalRooms;
 
 public class HomeScreen extends JPanel implements ActionListener{
 
-	private JFrame frame;
+	public JPanel homePanel;
 	private JList roomList;
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
@@ -28,23 +27,6 @@ public class HomeScreen extends JPanel implements ActionListener{
 	private Test_LocalRooms testrooms = new Test_LocalRooms();
 	String username = loginscreen.username;
 	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void HomeScreen() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HomeScreen window = new HomeScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 */
@@ -58,70 +40,55 @@ public class HomeScreen extends JPanel implements ActionListener{
 	@SuppressWarnings("unchecked")
 	private void initialize() {
 		//Create the frame
-		frame = new JFrame();
-		frame.setBounds(200, 200, 900, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		homePanel = new JPanel();
+		JPanel labelPanel = new JPanel();
+		homePanel.setBounds(200, 200, 900, 600);
+		homePanel.setLayout(new BorderLayout());
 		
-		//Title label, top left corner
+		//LABELS
+		homePanel.add(labelPanel, BorderLayout.NORTH);
+
 		JLabel lblAvailableRooms = DefaultComponentFactory.getInstance().createTitle("Available rooms for:");
 		lblAvailableRooms.setBounds(19, 20, 250, 16);
-		frame.getContentPane().add(lblAvailableRooms);
-
-		//Name label, below title label
+		labelPanel.add(lblAvailableRooms);
 		JLabel lblUser = new JLabel(username);
-		lblUser.setBounds(19, 40, 250, 16);
-		frame.getContentPane().add(lblUser);
+		lblUser.setBounds(39, 20, 250, 16);
+		labelPanel.add(lblUser);
 		
 		//Exit-button, top right corner
 		btnExit = new JButton();
 		btnExit.setBounds(780, 20, 100, 20);
 		btnExit.setText("Exit");
 		btnExit.addActionListener(this);
-		frame.getContentPane().add(btnExit);
 		
 		//Create Room-button, left to Exit-button
 		btnCreateRoom = new JButton();
 		btnCreateRoom.setBounds(675, 20, 100, 20);
 		btnCreateRoom.setText("Create room");
 		btnCreateRoom.addActionListener(this);
-		frame.getContentPane().add(btnCreateRoom);
 		
 		//Update-button
 		btnUpdate = new JButton();
 		btnUpdate.setBounds(520, 60, 100, 20);
 		btnUpdate.setText("Update");
 		btnUpdate.addActionListener(this);
-		frame.getContentPane().add(btnUpdate);
 		
-		/*
-		 * STILL IN PROGRESS!
-		 */
-		
-		/*
-		 * TODO!
-		 * Der skal oprettes en liste, hvori tilgængelige Rooms skal være.
-		 * Derudover skal man kunne klikke på én af disse, og blive sendt videre
-		 * til 'SelectedRoom'-siden
-		 */
-		
-		/*
-		 * To easily add elements to the testrooms.rooms[], simply
-		 * make a for-loop, taking each element in the database
-		 * and put them
-		 */
-		
-				
 		JList listOfRooms = new JList(testrooms.getRooms().toArray());
 		listOfRooms.setVisibleRowCount(5);
-	
 		JList listOfQuestions = new JList();
-		
 		JScrollPane listScrollPane = new JScrollPane(listOfRooms);
 		listScrollPane.setBounds(19, 60, 500, 400);
 		
-		frame.getContentPane().add(listScrollPane);
 		
+		homePanel.add(listScrollPane);
+		
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new GridLayout(0,1));
+		homePanel.add(btnPanel, BorderLayout.SOUTH);
+		
+		btnPanel.add(btnCreateRoom);
+		btnPanel.add(btnUpdate);
+		btnPanel.add(btnExit);
 		
 	}
 
@@ -131,17 +98,15 @@ public class HomeScreen extends JPanel implements ActionListener{
 		
 		if(cmd.equals("Exit")){
 			System.out.println("Exit-button was pressed, shutting down...");
-			frame.setVisible(false);
-			frame.dispose();
+			homePanel.setVisible(false);
 			System.exit(0);
 		}
 		
 		if(cmd.equals("Create room")){
 			System.out.println("Create Room was pressed, proceeding...");
-			frame.setVisible(false);
-			frame.dispose();
+			homePanel.setVisible(false);
 			CreateRoom createroom = new CreateRoom();
-			createroom.CreateRoom();
+			MainWindow.frame.getContentPane().add(createroom.createroomPanel);
 			createroom.setVisible(true);	
 		}
 		
@@ -149,7 +114,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 			JList<ArrayList> newList = new JList(testrooms.getRooms().toArray());
 			JScrollPane listScrollPane = new JScrollPane(newList);
 			listScrollPane.setBounds(19, 60, 500, 400);
-			frame.getContentPane().add(listScrollPane);
+			homePanel.add(listScrollPane);
 		}
 	}
 }
