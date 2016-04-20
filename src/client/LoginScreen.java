@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import functionality.Connection;
 import tests.VerifyLogin;
 
 public class LoginScreen extends JPanel implements ActionListener {
@@ -22,12 +23,13 @@ public class LoginScreen extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	public JPanel loginPanel;
-	private JTextField txtUsername;
-	private JPasswordField password;
+	public JTextField txtUsername;
+	public JPasswordField txtPassword;
 	private JButton btnLogIn;
 	private JButton btnLoginAsGuest;
-	public static String username;
+	public static String username, password;
 	VerifyLogin verify = new VerifyLogin();
+	Connection connection = new Connection();
 
 	public LoginScreen() {
 		initialize();
@@ -48,8 +50,8 @@ public class LoginScreen extends JPanel implements ActionListener {
 		pwPanel.setLayout(new BorderLayout(2,2));
 		
 		txtUsername = new JTextField();
-		password = new JPasswordField();
-		password.setColumns(10);
+		txtPassword = new JPasswordField();
+		txtPassword.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username	");
 		JLabel lblPassword = new JLabel("Password	");
@@ -57,7 +59,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 		btnLogIn = new JButton("Log in");
 		btnLoginAsGuest = new JButton("Login as guest");		
 		
-		password.setActionCommand("Log in");
+		txtPassword.setActionCommand("Log in");
 		btnLogIn.addActionListener(this);
 		btnLoginAsGuest.addActionListener(this);
 		
@@ -66,7 +68,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 		unPanel.add(txtUsername, BorderLayout.CENTER);
 		loginPanel.add(pwPanel);
 		pwPanel.add(lblPassword, BorderLayout.WEST);
-		pwPanel.add(password, BorderLayout.CENTER);
+		pwPanel.add(txtPassword, BorderLayout.CENTER);
 		loginPanel.add(btnPanel);
 		btnPanel.add(btnLogIn);
 		btnPanel.add(btnLoginAsGuest);
@@ -76,10 +78,11 @@ public class LoginScreen extends JPanel implements ActionListener {
 		String cmd = e.getActionCommand();
 		
 		if(cmd.equals("Log in")){
-			char[] passInput = password.getPassword();
+			//char[] passInput = password.getPassword();
 			
-			if(verify.isPasswordCorrect(passInput)){
-				username = txtUsername.getText();
+			username = txtUsername.getText();
+			password = txtPassword.toString();
+			if(connection.login(username,txtPassword)){
 				HomeScreen homescreen = new HomeScreen();
 				MainWindow.frame.getContentPane().add(homescreen.homePanel);
 				loginPanel.setVisible(false);
