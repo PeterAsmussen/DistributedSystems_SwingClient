@@ -1,12 +1,11 @@
 package client;
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -40,18 +39,20 @@ public class LoginScreen extends JPanel implements ActionListener {
 	private void initialize() {
 		loginPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
+		JPanel unPanel = new JPanel();
+		JPanel pwPanel = new JPanel();
 		loginPanel.setBounds(100, 100, 450, 300);
 		loginPanel.setLayout(new GridLayout(0,1));
 		btnPanel.setLayout(new GridLayout(0,1));
-		
+		unPanel.setLayout(new BorderLayout(2,2));
+		pwPanel.setLayout(new BorderLayout(2,2));
 		
 		txtUsername = new JTextField();
-		txtUsername.setColumns(10);	
 		password = new JPasswordField();
 		password.setColumns(10);
 		
-		JLabel lblUsername = new JLabel("Username");
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblUsername = new JLabel("Username	");
+		JLabel lblPassword = new JLabel("Password	");
 		
 		btnLogIn = new JButton("Log in");
 		btnLoginAsGuest = new JButton("Login as guest");		
@@ -60,10 +61,12 @@ public class LoginScreen extends JPanel implements ActionListener {
 		btnLogIn.addActionListener(this);
 		btnLoginAsGuest.addActionListener(this);
 		
-		loginPanel.add(lblUsername);
-		loginPanel.add(txtUsername);
-		loginPanel.add(lblPassword);
-		loginPanel.add(password);
+		loginPanel.add(unPanel);
+		unPanel.add(lblUsername, BorderLayout.WEST);
+		unPanel.add(txtUsername, BorderLayout.CENTER);
+		loginPanel.add(pwPanel);
+		pwPanel.add(lblPassword, BorderLayout.WEST);
+		pwPanel.add(password, BorderLayout.CENTER);
 		loginPanel.add(btnPanel);
 		btnPanel.add(btnLogIn);
 		btnPanel.add(btnLoginAsGuest);

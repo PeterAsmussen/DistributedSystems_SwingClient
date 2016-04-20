@@ -111,10 +111,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 		}
 		
 		if(cmd.equals("Update")){
-			JList<ArrayList> newList = new JList(testrooms.getRooms().toArray());
-			JScrollPane listScrollPane = new JScrollPane(newList);
-			listScrollPane.setBounds(19, 60, 500, 400);
-			homePanel.add(listScrollPane);
+			//TODO
 		}
 	}
 }
