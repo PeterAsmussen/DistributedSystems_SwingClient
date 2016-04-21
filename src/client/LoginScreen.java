@@ -39,6 +39,11 @@ public class LoginScreen extends JPanel implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		/*
+		 * LoginScreen-panelet oprettes, samt de oenksede under-paneler
+		 * som skal indeholder knapper/andre obejkter 
+		 */
 		loginPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
 		JPanel unPanel = new JPanel();
@@ -49,20 +54,32 @@ public class LoginScreen extends JPanel implements ActionListener {
 		unPanel.setLayout(new BorderLayout(2,2));
 		pwPanel.setLayout(new BorderLayout(2,2));
 		
+		/*
+		 * Username og password-felter oprettes
+		 */
 		txtUsername = new JTextField();
 		txtPassword = new JPasswordField();
 		txtPassword.setColumns(10);
 		
-		JLabel lblUsername = new JLabel("Username	");
-		JLabel lblPassword = new JLabel("Password	");
+		/*
+		 * Labels oprettes
+		 */
+		JLabel lblUsername = new JLabel("Username");
+		JLabel lblPassword = new JLabel("Password");
 		
+		/*
+		 * Knapper oprettes
+		 */
 		btnLogIn = new JButton("Log in");
 		btnLoginAsGuest = new JButton("Login as guest");		
-		
+	
 		txtPassword.setActionCommand("Log in");
 		btnLogIn.addActionListener(this);
 		btnLoginAsGuest.addActionListener(this);
 		
+		/*
+		 * Objekter tilfoejes til LoginScreen-panelet
+		 */
 		loginPanel.add(unPanel);
 		unPanel.add(lblUsername, BorderLayout.WEST);
 		unPanel.add(txtUsername, BorderLayout.CENTER);
@@ -79,31 +96,32 @@ public class LoginScreen extends JPanel implements ActionListener {
 		String cmd = e.getActionCommand();
 		
 		if(cmd.equals("Log in")){
-			
 			username = txtUsername.getText();
 			String password = String.valueOf(txtPassword.getPassword());
-		
 			if(connection.login(username,password)){
+				
 				HomeScreen homescreen = new HomeScreen();
 				MainWindow.frame.getContentPane().add(homescreen.homePanel);
 				loginPanel.setVisible(false);
-
 				System.out.println("Log in was pressed");
+				
 			} else {
+				
 				JOptionPane.showMessageDialog(loginPanel, "Bad password, try again");
 				System.out.println("Incorrect password!");
+				
 			}
 		}
 		
 		if(cmd.equals("Login as guest")){
+			
 			int i = verify.randomInteger(1, 8);
 			username = verify.nameGenerator(i);
 			HomeScreen homescreen = new HomeScreen();
 			MainWindow.frame.getContentPane().add(homescreen.homePanel);
 			loginPanel.setVisible(false);
-			
-	
 			System.out.println("Login as guest was pressed!");
+			
 		}
 	}
 }

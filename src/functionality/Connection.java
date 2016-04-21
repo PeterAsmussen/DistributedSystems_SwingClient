@@ -16,7 +16,9 @@ import client.LoginScreen;
 public class Connection {
 	
 	
-
+	/*
+	 * Denne login-metode er 'stjaalet' fra gruppens APP, smaa aendringer er tilfoejet
+	 */
 	public boolean login(String username, String password){
 		
 		AtomicBoolean success = new AtomicBoolean(false);

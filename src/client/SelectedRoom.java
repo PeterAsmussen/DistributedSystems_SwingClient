@@ -1,28 +1,10 @@
 package client;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 public class SelectedRoom {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SelectedRoom window = new SelectedRoom();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -31,6 +13,11 @@ public class SelectedRoom {
 		initialize();
 	}
 
+	/*
+	 * TODO:
+	 * SelectedRoom-panelet tilfoejes naar data-manipulation fra HomeScreen er implementeret
+	 */
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */

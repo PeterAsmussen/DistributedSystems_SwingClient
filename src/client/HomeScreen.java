@@ -38,50 +38,52 @@ public class HomeScreen extends JPanel implements ActionListener{
 	 */
 	@SuppressWarnings("unchecked")
 	private void initialize() {
-		//Create the frame
+		
+		/*
+		 * HomeScreen-panelet oprettes, og der tilfoejes yderligere under-paneler
+		 * som indeholder knapper/ScrollPanes osv
+		 */
 		homePanel = new JPanel();
 		JPanel labelPanel = new JPanel();
 		homePanel.setBounds(200, 200, 900, 600);
 		homePanel.setLayout(new BorderLayout());
-		
-		//LABELS
 		homePanel.add(labelPanel, BorderLayout.NORTH);
 
+		/*
+		 * Titel på vindue
+		 */
 		JLabel lblAvailableRooms = DefaultComponentFactory.getInstance().createTitle("Available rooms for:");
-		lblAvailableRooms.setBounds(19, 20, 250, 16);
 		labelPanel.add(lblAvailableRooms);
 		
-		//Exit-button, top right corner
+		/*
+		 * Knapper oprettes
+		 */
 		btnExit = new JButton();
-		btnExit.setBounds(780, 20, 100, 20);
 		btnExit.setText("Exit");
 		btnExit.addActionListener(this);
 		
-		//Create Room-button, left to Exit-button
 		btnCreateRoom = new JButton();
-		btnCreateRoom.setBounds(675, 20, 100, 20);
 		btnCreateRoom.setText("Create room");
 		btnCreateRoom.addActionListener(this);
-		
-		//Update-button
+	
 		btnUpdate = new JButton();
-		btnUpdate.setBounds(520, 60, 100, 20);
 		btnUpdate.setText("Update");
 		btnUpdate.addActionListener(this);
 		
-		JList listOfRooms = new JList(testrooms.getRooms().toArray());
-		listOfRooms.setVisibleRowCount(5);
-		JList listOfQuestions = new JList();
-		JScrollPane listScrollPane = new JScrollPane(listOfRooms);
-		listScrollPane.setBounds(19, 60, 500, 400);
+		/*
+		 * Data fra databasen skal hentes, manipuleres så den kan indsættes i et ScrollPane,
+		 * og så man kan 'vælge' et specifikt datapunkt, og åbne dette (det vil være et Room) 
+		 */
+		JScrollPane listScrollPane = new JScrollPane();
 		
 		
+		/*
+		 * Objekter tilfoejes til HomeScreen-panelet
+		 */
 		homePanel.add(listScrollPane);
-		
 		JPanel btnPanel = new JPanel();
 		btnPanel.setLayout(new GridLayout(0,1));
 		homePanel.add(btnPanel, BorderLayout.SOUTH);
-		
 		btnPanel.add(btnCreateRoom);
 		btnPanel.add(btnUpdate);
 		btnPanel.add(btnExit);
