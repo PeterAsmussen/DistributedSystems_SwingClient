@@ -105,7 +105,7 @@ public class CreateRoom extends JPanel implements ActionListener {
 			//testrooms.rooms.add(txtRoomName.getText());
 			
 			homescreen = new HomeScreen();
-			MainWindow.frame.getContentPane().add(homescreen.homePanel);
+			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 			
 			System.out.println("Done-button was pressed:");
 			System.out.println(testrooms.rooms);

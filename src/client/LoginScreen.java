@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,23 +50,24 @@ public class LoginScreen extends JPanel implements ActionListener {
 		JPanel unPanel = new JPanel();
 		JPanel pwPanel = new JPanel();
 		loginPanel.setBounds(100, 100, 450, 300);
-		loginPanel.setLayout(new GridLayout(0,1));
-		btnPanel.setLayout(new GridLayout(0,1));
-		unPanel.setLayout(new BorderLayout(2,2));
-		pwPanel.setLayout(new BorderLayout(2,2));
+		loginPanel.setLayout(new GridLayout(4,1));
+		btnPanel.setLayout(new GridBagLayout());
+		unPanel.setLayout(new GridBagLayout());
+		pwPanel.setLayout(new GridBagLayout());
 		
 		/*
 		 * Username og password-felter oprettes
 		 */
 		txtUsername = new JTextField();
+		txtUsername.setColumns(10);
 		txtPassword = new JPasswordField();
 		txtPassword.setColumns(10);
 		
 		/*
 		 * Labels oprettes
 		 */
-		JLabel lblUsername = new JLabel("Username");
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblUsername = new JLabel("Username:	");
+		JLabel lblPassword = new JLabel("Password:	");
 		
 		/*
 		 * Knapper oprettes
@@ -81,11 +83,11 @@ public class LoginScreen extends JPanel implements ActionListener {
 		 * Objekter tilfoejes til LoginScreen-panelet
 		 */
 		loginPanel.add(unPanel);
-		unPanel.add(lblUsername, BorderLayout.WEST);
-		unPanel.add(txtUsername, BorderLayout.CENTER);
+		unPanel.add(lblUsername);
+		unPanel.add(txtUsername);
 		loginPanel.add(pwPanel);
-		pwPanel.add(lblPassword, BorderLayout.WEST);
-		pwPanel.add(txtPassword, BorderLayout.CENTER);
+		pwPanel.add(lblPassword);
+		pwPanel.add(txtPassword);
 		loginPanel.add(btnPanel);
 		btnPanel.add(btnLogIn);
 		btnPanel.add(btnLoginAsGuest);
@@ -101,7 +103,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 			if(connection.login(username,password)){
 				
 				HomeScreen homescreen = new HomeScreen();
-				MainWindow.frame.getContentPane().add(homescreen.homePanel);
+				MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 				loginPanel.setVisible(false);
 				System.out.println("Log in was pressed");
 				
@@ -118,7 +120,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 			int i = verify.randomInteger(1, 8);
 			username = verify.nameGenerator(i);
 			HomeScreen homescreen = new HomeScreen();
-			MainWindow.frame.getContentPane().add(homescreen.homePanel);
+			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 			loginPanel.setVisible(false);
 			System.out.println("Login as guest was pressed!");
 			

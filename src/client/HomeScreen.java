@@ -18,11 +18,11 @@ import tests.Test_LocalRooms;
 
 public class HomeScreen extends JPanel implements ActionListener{
 
-	public JPanel homePanel;
+	public JPanel homeScreenPanel;
 	private JList roomList;
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
-	public JButton btnExit, btnCreateRoom, btnUpdate;
+	public JButton btnExit, btnCreateRoom, btnUpdate, btnCreateUser;
 	private Test_LocalRooms testrooms = new Test_LocalRooms();
 	LoginScreen loginscreen = new LoginScreen();
 	
@@ -43,16 +43,16 @@ public class HomeScreen extends JPanel implements ActionListener{
 		 * HomeScreen-panelet oprettes, og der tilfoejes yderligere under-paneler
 		 * som indeholder knapper/ScrollPanes osv
 		 */
-		homePanel = new JPanel();
+		homeScreenPanel = new JPanel();
 		JPanel labelPanel = new JPanel();
-		homePanel.setBounds(200, 200, 900, 600);
-		homePanel.setLayout(new BorderLayout());
-		homePanel.add(labelPanel, BorderLayout.NORTH);
+		homeScreenPanel.setBounds(200, 200, 900, 600);
+		homeScreenPanel.setLayout(new BorderLayout());
+		homeScreenPanel.add(labelPanel, BorderLayout.NORTH);
 
 		/*
 		 * Titel på vindue
 		 */
-		JLabel lblAvailableRooms = DefaultComponentFactory.getInstance().createTitle("Available rooms for:");
+		JLabel lblAvailableRooms = DefaultComponentFactory.getInstance().createTitle("Available rooms for:" );
 		labelPanel.add(lblAvailableRooms);
 		
 		/*
@@ -70,6 +70,10 @@ public class HomeScreen extends JPanel implements ActionListener{
 		btnUpdate.setText("Update");
 		btnUpdate.addActionListener(this);
 		
+		btnCreateUser = new JButton();
+		btnCreateUser.setText("Create user");
+		btnCreateUser.addActionListener(this);
+		
 		/*
 		 * Data fra databasen skal hentes, manipuleres så den kan indsættes i et ScrollPane,
 		 * og så man kan 'vælge' et specifikt datapunkt, og åbne dette (det vil være et Room) 
@@ -80,11 +84,12 @@ public class HomeScreen extends JPanel implements ActionListener{
 		/*
 		 * Objekter tilfoejes til HomeScreen-panelet
 		 */
-		homePanel.add(listScrollPane);
+		homeScreenPanel.add(listScrollPane);
 		JPanel btnPanel = new JPanel();
 		btnPanel.setLayout(new GridLayout(0,1));
-		homePanel.add(btnPanel, BorderLayout.SOUTH);
+		homeScreenPanel.add(btnPanel, BorderLayout.SOUTH);
 		btnPanel.add(btnCreateRoom);
+		btnPanel.add(btnCreateUser);
 		btnPanel.add(btnUpdate);
 		btnPanel.add(btnExit);
 		
@@ -96,13 +101,13 @@ public class HomeScreen extends JPanel implements ActionListener{
 		
 		if(cmd.equals("Exit")){
 			System.out.println("Exit-button was pressed, shutting down...");
-			homePanel.setVisible(false);
+			homeScreenPanel.setVisible(false);
 			System.exit(0);
 		}
 		
 		if(cmd.equals("Create room")){
 			System.out.println("Create Room was pressed, proceeding...");
-			homePanel.setVisible(false);
+			homeScreenPanel.setVisible(false);
 			CreateRoom createroom = new CreateRoom();
 			MainWindow.frame.getContentPane().add(createroom.createroomPanel);
 			createroom.setVisible(true);	
