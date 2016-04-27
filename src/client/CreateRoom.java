@@ -56,17 +56,6 @@ public class CreateRoom extends JPanel implements ActionListener {
 		btnDone.setText("Done");
 		btnDone.addActionListener(this);
 		
-		
-		/*
-		 * TODO!
-		 * Der skal oprettes nogle tekstfelter, hvori der skal tilføjes:
-		 * 	Room-navn
-		 * 	Et spørgsmål
-		 * 	Evt(?)
-		 * Når rummet er oprettet, skal der sendes en put/post-besked til 
-		 * Firebase. Herefter skal man sendes tilbage til 'HomeScreen'-vinduet
-		 */
-		
 		lblRoomName = new JLabel();
 		lblRoomName.setText("Enter Room name");
 		lblTopicQuestion = new JLabel();

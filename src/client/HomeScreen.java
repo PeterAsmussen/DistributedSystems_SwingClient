@@ -1,10 +1,10 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -44,17 +44,15 @@ public class HomeScreen extends JPanel implements ActionListener{
 		 * som indeholder knapper/ScrollPanes osv
 		 */
 		homeScreenPanel = new JPanel();
-		JPanel labelPanel = new JPanel();
-		homeScreenPanel.setLayout(new BorderLayout());
-		homeScreenPanel.add(labelPanel, BorderLayout.NORTH);
+		JPanel listPanel = new JPanel();
+		JPanel btnPanel = new JPanel();
+		homeScreenPanel.setLayout(new GridLayout(2,0));
+		btnPanel.setLayout(new GridBagLayout());
 
 		/*
 		 * Titel på vindue
 		 */
-		JLabel lblAvailableRooms = DefaultComponentFactory.getInstance().createTitle("Available rooms for:" );
-		labelPanel.add(lblAvailableRooms);
-		
-		/*
+	/*
 		 * Knapper oprettes
 		 */
 		btnExit = new JButton();
@@ -69,20 +67,9 @@ public class HomeScreen extends JPanel implements ActionListener{
 		btnUpdate.setText("Update");
 		btnUpdate.addActionListener(this);
 		
-		/*
-		 * Data fra databasen skal hentes, manipuleres så den kan indsættes i et ScrollPane,
-		 * og så man kan 'vælge' et specifikt datapunkt, og åbne dette (det vil være et Room) 
-		 */
 		JScrollPane listScrollPane = new JScrollPane();
-		
-		
-		/*
-		 * Objekter tilfoejes til HomeScreen-panelet
-		 */
 		homeScreenPanel.add(listScrollPane);
-		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new GridLayout(0,1));
-		homeScreenPanel.add(btnPanel, BorderLayout.SOUTH);
+		homeScreenPanel.add(btnPanel);
 		btnPanel.add(btnCreateRoom);
 		btnPanel.add(btnUpdate);
 		btnPanel.add(btnExit);
