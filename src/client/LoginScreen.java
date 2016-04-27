@@ -26,8 +26,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 	public JPanel loginPanel;
 	public JTextField txtUsername;
 	public JPasswordField txtPassword;
-	private JButton btnLogIn;
-	private JButton btnLoginAsGuest;
+	private JButton btnLogIn, btnLoginAsGuest, btnCreateUser;
 	public String username, password;
 	VerifyLogin verify = new VerifyLogin();
 	Connection connection = new Connection();
@@ -47,21 +46,18 @@ public class LoginScreen extends JPanel implements ActionListener {
 		 */
 		loginPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
-		JPanel unPanel = new JPanel();
-		JPanel pwPanel = new JPanel();
-		loginPanel.setBounds(100, 100, 450, 300);
-		loginPanel.setLayout(new GridLayout(4,1));
+		JPanel infoPanel = new JPanel();
+		loginPanel.setLayout(new GridLayout(3,1));
 		btnPanel.setLayout(new GridBagLayout());
-		unPanel.setLayout(new GridBagLayout());
-		pwPanel.setLayout(new GridBagLayout());
+		infoPanel.setLayout(new GridLayout(4,3));
 		
 		/*
 		 * Username og password-felter oprettes
 		 */
 		txtUsername = new JTextField();
-		txtUsername.setColumns(10);
+		txtUsername.setColumns(20);
 		txtPassword = new JPasswordField();
-		txtPassword.setColumns(10);
+		txtPassword.setColumns(20);
 		
 		/*
 		 * Labels oprettes
@@ -73,24 +69,26 @@ public class LoginScreen extends JPanel implements ActionListener {
 		 * Knapper oprettes
 		 */
 		btnLogIn = new JButton("Log in");
-		btnLoginAsGuest = new JButton("Login as guest");		
+		btnLoginAsGuest = new JButton("Login as guest");
+		btnCreateUser = new JButton("Create user");
 	
 		txtPassword.setActionCommand("Log in");
 		btnLogIn.addActionListener(this);
 		btnLoginAsGuest.addActionListener(this);
+		btnCreateUser.addActionListener(this);
 		
 		/*
 		 * Objekter tilfoejes til LoginScreen-panelet
 		 */
-		loginPanel.add(unPanel);
-		unPanel.add(lblUsername);
-		unPanel.add(txtUsername);
-		loginPanel.add(pwPanel);
-		pwPanel.add(lblPassword);
-		pwPanel.add(txtPassword);
+		loginPanel.add(infoPanel);
+		infoPanel.add(lblUsername);
+		infoPanel.add(txtUsername);
+		infoPanel.add(lblPassword);
+		infoPanel.add(txtPassword);
 		loginPanel.add(btnPanel);
 		btnPanel.add(btnLogIn);
 		btnPanel.add(btnLoginAsGuest);
+		btnPanel.add(btnCreateUser);
 	
 	}
 	
@@ -124,6 +122,14 @@ public class LoginScreen extends JPanel implements ActionListener {
 			loginPanel.setVisible(false);
 			System.out.println("Login as guest was pressed!");
 			
+		}
+		
+		if(cmd.equals("Create user")){
+			
+			CreateUser createuser = new CreateUser();
+			MainWindow.frame.getContentPane().add(createuser.createUserPanel);
+			loginPanel.setVisible(false);
+			System.out.println("Create user was pressed!");
 		}
 	}
 }

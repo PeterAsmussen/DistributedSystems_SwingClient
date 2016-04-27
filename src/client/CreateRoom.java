@@ -1,6 +1,6 @@
 package client;
 
-import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,14 +40,11 @@ public class CreateRoom extends JPanel implements ActionListener {
 	private void initialize() {
 		//Create the frame
 		createroomPanel = new JPanel();
-		createroomPanel.setBounds(200, 200, 900, 600);
-		createroomPanel.setLayout(new GridLayout(0,1));
-		JPanel rnPanel = new JPanel();
-		rnPanel.setLayout(new BorderLayout(2,2));
-		JPanel tqPanel = new JPanel();
-		tqPanel.setLayout(new BorderLayout(2,2));
+		createroomPanel.setLayout(new GridLayout(3,1));
+		JPanel infoPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new GridLayout(0,1));
+		infoPanel.setLayout(new GridLayout(4,1));
+		btnPanel.setLayout(new GridBagLayout());
 	
 		JLabel lblCreateRoom = DefaultComponentFactory.getInstance().createTitle("Create new room");
 		
@@ -78,13 +75,11 @@ public class CreateRoom extends JPanel implements ActionListener {
 		txtRoomName = new JTextField();
 		txtTopicQuestion = new JTextField();
 		
-		createroomPanel.add(lblCreateRoom);
-		createroomPanel.add(rnPanel);
-		rnPanel.add(lblRoomName, BorderLayout.WEST);
-		rnPanel.add(txtRoomName, BorderLayout.CENTER);
-		createroomPanel.add(tqPanel);
-		tqPanel.add(lblTopicQuestion, BorderLayout.WEST);
-		tqPanel.add(txtTopicQuestion, BorderLayout.CENTER);
+		createroomPanel.add(infoPanel);
+		infoPanel.add(lblRoomName);
+		infoPanel.add(txtRoomName);
+		infoPanel.add(lblTopicQuestion);
+		infoPanel.add(txtTopicQuestion);
 		createroomPanel.add(btnPanel);
 		btnPanel.add(btnDone);
 		btnPanel.add(btnExit);

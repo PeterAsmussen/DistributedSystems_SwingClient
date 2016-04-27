@@ -22,7 +22,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 	private JList roomList;
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
-	public JButton btnExit, btnCreateRoom, btnUpdate, btnCreateUser;
+	public JButton btnExit, btnCreateRoom, btnUpdate;
 	private Test_LocalRooms testrooms = new Test_LocalRooms();
 	LoginScreen loginscreen = new LoginScreen();
 	
@@ -45,7 +45,6 @@ public class HomeScreen extends JPanel implements ActionListener{
 		 */
 		homeScreenPanel = new JPanel();
 		JPanel labelPanel = new JPanel();
-		homeScreenPanel.setBounds(200, 200, 900, 600);
 		homeScreenPanel.setLayout(new BorderLayout());
 		homeScreenPanel.add(labelPanel, BorderLayout.NORTH);
 
@@ -70,10 +69,6 @@ public class HomeScreen extends JPanel implements ActionListener{
 		btnUpdate.setText("Update");
 		btnUpdate.addActionListener(this);
 		
-		btnCreateUser = new JButton();
-		btnCreateUser.setText("Create user");
-		btnCreateUser.addActionListener(this);
-		
 		/*
 		 * Data fra databasen skal hentes, manipuleres så den kan indsættes i et ScrollPane,
 		 * og så man kan 'vælge' et specifikt datapunkt, og åbne dette (det vil være et Room) 
@@ -89,7 +84,6 @@ public class HomeScreen extends JPanel implements ActionListener{
 		btnPanel.setLayout(new GridLayout(0,1));
 		homeScreenPanel.add(btnPanel, BorderLayout.SOUTH);
 		btnPanel.add(btnCreateRoom);
-		btnPanel.add(btnCreateUser);
 		btnPanel.add(btnUpdate);
 		btnPanel.add(btnExit);
 		
