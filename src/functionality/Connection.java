@@ -2,16 +2,12 @@ package functionality;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.JPasswordField;
-
 import org.json.simple.JSONObject;
-
-import client.LoginScreen;
+import org.json.simple.parser.JSONParser;
 
 public class Connection {
 	
@@ -29,16 +25,16 @@ public class Connection {
 			
             public void run() {
                 try {
-                    JSONObject obj = new JSONObject();
+                    JSONObject send = new JSONObject();
                     try {
-                        obj.put("TASK", "loginauth");
-                        obj.put("USERNAME", username);
-                        obj.put("PASSWORD", password);
+                        send.put("TASK", "loginauth");
+                        send.put("USERNAME", username);
+                        send.put("PASSWORD", password);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    String combinedMessage = "?logininfo=" + obj.toString();
+                    String combinedMessage = "?logininfo=" + send.toString();
                     System.out.println("CombinedMessage"+ combinedMessage);
                     URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet"+combinedMessage);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -47,9 +43,13 @@ public class Connection {
                     String returnString = "";
                     returnString = in.readLine();
                     
+                    JSONObject recieve = new JSONObject();
+                    JSONParser parser = new JSONParser();
+                    recieve = (JSONObject) parser.parse(returnString);
+                    
                     System.out.println("returnString: "+returnString);
                     
-                    if (returnString.equals("loginsucces")) {
+                    if (recieve.get("REPLY").toString().equals("succes")){
                     	System.out.println("Retur-stringen er kommet");
                     	success.set(true);
                     	done.set(true);

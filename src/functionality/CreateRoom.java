@@ -7,4 +7,6 @@ public class CreateRoom {
 	 * Muligvis implementeres CreateRoom-metoden i denne klasse, det overvejes stadigvaek
 	 */
 	
+	
+	
 }
