@@ -20,7 +20,7 @@ public class Connection {
 		AtomicBoolean success = new AtomicBoolean(false);
 		AtomicBoolean done = new AtomicBoolean(false);
 		
-		System.out.println("preThread");
+		System.out.println("preThread - Login");
 		new Thread(new Runnable() {
 			
             public void run() {

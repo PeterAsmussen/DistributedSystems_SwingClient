@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import functionality.CreateRoomFunc;
 import tests.Test_LocalRooms;
 
 public class CreateRoom extends JPanel implements ActionListener {
@@ -25,6 +26,7 @@ public class CreateRoom extends JPanel implements ActionListener {
 	public JLabel lblRoomName, lblTopicQuestion;
 	public JTextField txtRoomName, txtTopicQuestion;
 	private Test_LocalRooms testrooms = new Test_LocalRooms();
+	CreateRoomFunc createroomfunc = new CreateRoomFunc();
 	HomeScreen homescreen;
 
 	/**
@@ -88,6 +90,7 @@ public class CreateRoom extends JPanel implements ActionListener {
 		if(cmd.equals("Done")){
 			//testrooms.rooms.add(txtRoomName.getText());
 			
+			createroomfunc.createRoom();
 			homescreen = new HomeScreen();
 			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 			

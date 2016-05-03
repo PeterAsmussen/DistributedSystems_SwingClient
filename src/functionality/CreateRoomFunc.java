@@ -15,6 +15,10 @@ import client.LoginScreen;
 
 public class CreateRoomFunc {
 	
+	/*
+	 * Mere eller mindre det samme som i Connection.java, dog tilpasset til CreateRoom 
+	 */
+	
 	CreateRoom createroom;
 	LoginScreen loginscreen;
 
@@ -23,12 +27,11 @@ public class CreateRoomFunc {
 		createroom = new CreateRoom();
 		loginscreen = new LoginScreen();
 		
+		System.out.println("preThread - Create Room!");
 		new Thread(new Runnable() {
             public void run() {
                 try {
-                    URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
+                   
                     JSONObject obj = new JSONObject();
                     try {
                         obj.put("TASK", "CREATEROOM");
@@ -42,25 +45,32 @@ public class CreateRoomFunc {
                     }
                    
                     String combinedMessage = obj.toString();
+                    URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet"+combinedMessage);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestMethod("PUT");
                     OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
                     out.write(combinedMessage);
                     out.close();
-
+                    
+                    System.out.println("CombinedMessage " + combinedMessage);
+                    
                     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                     String returnString = "";
                     returnString = in.readLine();
+                    
                     JSONObject recieve = new JSONObject();
+                    JSONParser parser = new JSONParser();
+                    recieve = (JSONObject) parser.parse(returnString);
 
-                    if (recieve.get("REPLY").equals("succes")){
+                    if (recieve.get("REPLY").toString().equals("succes")){
                     	System.out.printf("ReturnMessage", returnString);
                     	System.out.printf(recieve.get("ROOM").toString(), "room");
                         System.out.println("Room successfully created");
                     }
-                    else if(recieve.get("REPLY").equals("failed")){
-                    
+                    else if(recieve.get("REPLY").toString().equals("failed")){
+                    	System.out.printf("ReturnMessage", returnString);
                     } 
                 } catch (Exception e) {
                 }
