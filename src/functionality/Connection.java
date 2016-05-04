@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 
 public class Connection {
 	
+	public static String sessionkey;
 	
 	/*
 	 * Denne login-metode er 'stjaalet' fra gruppens APP, smaa aendringer er tilfoejet
@@ -46,8 +47,8 @@ public class Connection {
                     JSONObject recieve = new JSONObject();
                     JSONParser parser = new JSONParser();
                     recieve = (JSONObject) parser.parse(returnString);
-                    
                     System.out.println("returnString: "+returnString);
+                    sessionkey = recieve.get("SESSIONKEY").toString();
                     
                     if (recieve.get("REPLY").toString().equals("succes")){
                     	System.out.println("Retur-stringen er kommet");

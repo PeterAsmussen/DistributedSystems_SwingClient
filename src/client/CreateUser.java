@@ -18,7 +18,7 @@ public class CreateUser extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	public JPanel createUserPanel;
 	public JButton btnCreate, btnExit, btnBack;
-	public JTextField username, password;
+	public JTextField username, password, repeatPassword;
 	
 	public CreateUser(){
 		initialize();
@@ -29,17 +29,21 @@ public class CreateUser extends JPanel implements ActionListener {
 		createUserPanel.setLayout(new GridLayout(3, 1));
 		JPanel infoPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
-		infoPanel.setLayout(new GridLayout(4,3));
+		infoPanel.setLayout(new GridLayout(3,0));
 		btnPanel.setLayout(new GridBagLayout());
 		
-		JLabel lblUsername = new JLabel("Username:	");
-		JLabel lblPassword = new JLabel("Password:	");
+		JLabel lblUsername = new JLabel("Username	");
+		JLabel lblPassword = new JLabel("Password	");
+		JLabel lblRepeatPassword = new JLabel("Repeat password	");
 		
 		username = new JTextField();
 		username.setColumns(20);
 		
 		password = new JTextField();
 		password.setColumns(20);
+		
+		repeatPassword = new JTextField();
+		repeatPassword.setColumns(20);
 		
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
@@ -53,6 +57,8 @@ public class CreateUser extends JPanel implements ActionListener {
 		infoPanel.add(username);
 		infoPanel.add(lblPassword);
 		infoPanel.add(password);
+		infoPanel.add(lblRepeatPassword);
+		infoPanel.add(repeatPassword);
 		createUserPanel.add(btnPanel);
 		btnPanel.add(btnBack);
 		btnPanel.add(btnCreate);

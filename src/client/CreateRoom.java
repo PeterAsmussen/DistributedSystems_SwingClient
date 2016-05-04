@@ -25,6 +25,7 @@ public class CreateRoom extends JPanel implements ActionListener {
 	public JButton btnExit, btnDone, btnBack;
 	public JLabel lblRoomName, lblTopicQuestion;
 	public JTextField txtRoomName, txtTopicQuestion;
+	public static String roomname;
 	private Test_LocalRooms testrooms = new Test_LocalRooms();
 	CreateRoomFunc createroomfunc = new CreateRoomFunc();
 	HomeScreen homescreen;
@@ -90,6 +91,7 @@ public class CreateRoom extends JPanel implements ActionListener {
 		if(cmd.equals("Done")){
 			//testrooms.rooms.add(txtRoomName.getText());
 			
+			roomname = txtRoomName.getText().toString();
 			createroomfunc.createRoom();
 			homescreen = new HomeScreen();
 			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);

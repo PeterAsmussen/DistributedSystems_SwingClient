@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import functionality.RetrieveData;
 import tests.Test_LocalRooms;
 
 public class HomeScreen extends JPanel implements ActionListener{
@@ -23,7 +24,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
 	public JButton btnExit, btnCreateRoom, btnUpdate;
-	private Test_LocalRooms testrooms = new Test_LocalRooms();
+	RetrieveData retrievedata = new RetrieveData();
 	LoginScreen loginscreen = new LoginScreen();
 	
 	/**
@@ -44,15 +45,14 @@ public class HomeScreen extends JPanel implements ActionListener{
 		 * som indeholder knapper/ScrollPanes osv
 		 */
 		homeScreenPanel = new JPanel();
-		JPanel listPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
 		homeScreenPanel.setLayout(new GridLayout(2,0));
 		btnPanel.setLayout(new GridBagLayout());
+		
+		JLabel lblTitle = new JLabel();
+		lblTitle.setText("Available rooms for " + loginscreen.username);
 
 		/*
-		 * Titel på vindue
-		 */
-	/*
 		 * Knapper oprettes
 		 */
 		btnExit = new JButton();
@@ -67,13 +67,13 @@ public class HomeScreen extends JPanel implements ActionListener{
 		btnUpdate.setText("Update");
 		btnUpdate.addActionListener(this);
 		
-		JScrollPane listScrollPane = new JScrollPane();
+		JList list = new JList(retrievedata.roomkeyList);
+		JScrollPane listScrollPane = new JScrollPane(list);
 		homeScreenPanel.add(listScrollPane);
 		homeScreenPanel.add(btnPanel);
 		btnPanel.add(btnCreateRoom);
 		btnPanel.add(btnUpdate);
 		btnPanel.add(btnExit);
-		
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 		}
 		
 		if(cmd.equals("Update")){
-			//TODO
+			retrievedata.getData();
 		}
 	}
 }

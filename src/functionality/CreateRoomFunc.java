@@ -20,11 +20,14 @@ public class CreateRoomFunc {
 	
 	CreateRoom createroom;
 	LoginScreen loginscreen;
+	Connection connection;
+	public static String roomkey;
 
 	public void createRoom(){
 		
 		createroom = new CreateRoom();
 		loginscreen = new LoginScreen();
+		connection = new Connection();
 		
 		System.out.println("preThread - Create Room!");
 		new Thread(new Runnable() {
@@ -34,17 +37,18 @@ public class CreateRoomFunc {
                     JSONObject obj = new JSONObject();
                     try {
                         obj.put("TASK", "CREATEROOM");
-                        obj.put("TITLE", createroom.txtRoomName.getText().toString());
+                        obj.put("TITLE", createroom.roomname);
                         obj.put("OWNER", loginscreen.username);
                         obj.put("TYPE", "public");
-                        //obj.put("SESSIONKEY", sessionKey);
+                        obj.put("SESSIONKEY", connection.sessionkey);
+                        obj.put("USERNAME", loginscreen.username);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                    
                     String combinedMessage = obj.toString();
-                    URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet"+combinedMessage);
+                    URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestMethod("PUT");
@@ -58,15 +62,18 @@ public class CreateRoomFunc {
 
                     String returnString = "";
                     returnString = in.readLine();
-                    
+                    System.out.println(returnString);
                     JSONObject recieve = new JSONObject();
+                    JSONObject recievedRoom = new JSONObject();
                     JSONParser parser = new JSONParser();
                     recieve = (JSONObject) parser.parse(returnString);
+                    recievedRoom = (JSONObject) parser.parse(recieve.get("USER").toString());
 
-                    if (recieve.get("REPLY").toString().equals("succes")){
+                    if (recieve.get("REPLY").toString().equals("success")){
+                    	roomkey = recievedRoom.get("ROOMKEY").toString();
+                    	System.out.println("Room successfully created");
                     	System.out.printf("ReturnMessage", returnString);
                     	System.out.printf(recieve.get("ROOM").toString(), "room");
-                        System.out.println("Room successfully created");
                     }
                     else if(recieve.get("REPLY").toString().equals("failed")){
                     	System.out.printf("ReturnMessage", returnString);

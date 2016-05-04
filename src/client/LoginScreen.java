@@ -27,7 +27,8 @@ public class LoginScreen extends JPanel implements ActionListener {
 	public JTextField txtUsername;
 	public JPasswordField txtPassword;
 	private JButton btnLogIn, btnLoginAsGuest, btnCreateUser;
-	public String username, password;
+	public static String username;
+	public String password;
 	VerifyLogin verify = new VerifyLogin();
 	Connection connection = new Connection();
 
@@ -116,7 +117,6 @@ public class LoginScreen extends JPanel implements ActionListener {
 		if(cmd.equals("Login as guest")){
 			
 			int i = verify.randomInteger(1, 8);
-			username = verify.nameGenerator(i);
 			HomeScreen homescreen = new HomeScreen();
 			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 			loginPanel.setVisible(false);
