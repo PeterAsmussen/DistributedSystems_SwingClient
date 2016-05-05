@@ -7,18 +7,21 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import functionality.CreateUserFunc;
+
 public class CreateUser extends JPanel implements ActionListener {
 	
-	/**
-	 * 
-	 */
+	CreateUserFunc createuserfunc = new CreateUserFunc();
+	
 	private static final long serialVersionUID = 1L;
 	public JPanel createUserPanel;
-	public JButton btnCreate, btnExit, btnBack;
-	public JTextField username, password, repeatPassword;
+	private JButton btnCreate, btnExit, btnBack;
+	private JTextField username, password, repeatPassword, email, firstname, lastname;
+	public static String getUsername, getEmail, getPassword, getPassword2, getFirstname, getLastname;
 	
 	public CreateUser(){
 		initialize();
@@ -29,12 +32,15 @@ public class CreateUser extends JPanel implements ActionListener {
 		createUserPanel.setLayout(new GridLayout(3, 1));
 		JPanel infoPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
-		infoPanel.setLayout(new GridLayout(3,0));
+		infoPanel.setLayout(new GridLayout(4,0));
 		btnPanel.setLayout(new GridBagLayout());
 		
 		JLabel lblUsername = new JLabel("Username	");
 		JLabel lblPassword = new JLabel("Password	");
 		JLabel lblRepeatPassword = new JLabel("Repeat password	");
+		JLabel lblEmail = new JLabel("E-mail	");
+		JLabel lblFirstname = new JLabel("First name"	);
+		JLabel lblLastname = new JLabel("Last name	");
 		
 		username = new JTextField();
 		username.setColumns(20);
@@ -44,6 +50,13 @@ public class CreateUser extends JPanel implements ActionListener {
 		
 		repeatPassword = new JTextField();
 		repeatPassword.setColumns(20);
+		
+		email = new JTextField();
+		email.setColumns(20);
+		
+		firstname = new JTextField();
+		lastname.setColumns(20);
+		
 		
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
@@ -59,6 +72,12 @@ public class CreateUser extends JPanel implements ActionListener {
 		infoPanel.add(password);
 		infoPanel.add(lblRepeatPassword);
 		infoPanel.add(repeatPassword);
+		infoPanel.add(lblEmail);
+		infoPanel.add(email);
+		infoPanel.add(lblFirstname);
+		infoPanel.add(firstname);
+		infoPanel.add(lblLastname);
+		infoPanel.add(lastname);
 		createUserPanel.add(btnPanel);
 		btnPanel.add(btnBack);
 		btnPanel.add(btnCreate);
@@ -86,10 +105,20 @@ public class CreateUser extends JPanel implements ActionListener {
 		}
 		
 		if(cmd.equals("Create user")){
+			getUsername = username.getText().toString();
+			getEmail = email.getText().toString();
+			getPassword = password.getText().toString();
+			getPassword2 = password.getText().toString();
+			getFirstname = firstname.getText().toString();
+			getLastname = lastname.getText().toString();
+			
 			/*
-			 * TODO:
-			 * Data skal sendes til database her
+			 * insert if-statement to determine if user was created or not
 			 */
+			
+			JOptionPane.showMessageDialog(createUserPanel, "User successfully created");
+			
+			createuserfunc.createUser();
 		}
 		
 	}
