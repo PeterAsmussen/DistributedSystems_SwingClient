@@ -49,8 +49,6 @@ public class HomeScreen extends JPanel implements ActionListener{
 		homeScreenPanel.setLayout(new GridLayout(2,0));
 		btnPanel.setLayout(new GridBagLayout());
 		
-		JLabel lblTitle = new JLabel();
-		lblTitle.setText("Available rooms for " + loginscreen.username);
 
 		/*
 		 * Knapper oprettes

@@ -54,21 +54,25 @@ public class CreateUserFunc {
                     JSONObject recieve = new JSONObject();
                     System.out.printf(returnString, "");
 
-                    if(recieve.get("REPLY").equals("succes")){
-                   	 /*
-                   	  * TODO
-                   	  */
-                    }
                     
-                    else if(recieve.get("REPLY").equals("failed")) {
-                   	 /*
-                   	  * TODO
-                   	  */
-                    }                       
-                    
-                    System.out.printf("ReturnMessage:", returnString);
-                    in.close();
-                    
+                    while(CreateUser.getPassword.equals(CreateUser.getPassword2)){
+                   
+                    	if(recieve.get("REPLY").equals("succes")){
+                          	 /*
+                          	  * TODO
+                          	  */
+                           }
+                           
+                           else if(recieve.get("REPLY").equals("failed")) {
+                          	 /*
+                          	  * TODO
+                          	  */
+                           }                       
+                           
+                           System.out.printf("ReturnMessage:", returnString);
+                           in.close();
+                           
+                           }
                     }
                     
                  catch (Exception e) {

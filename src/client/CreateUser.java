@@ -29,10 +29,10 @@ public class CreateUser extends JPanel implements ActionListener {
 
 	private void initialize(){
 		createUserPanel = new JPanel();
-		createUserPanel.setLayout(new GridLayout(3, 1));
+		createUserPanel.setLayout(new GridLayout(2, 1));
 		JPanel infoPanel = new JPanel();
 		JPanel btnPanel = new JPanel();
-		infoPanel.setLayout(new GridLayout(4,0));
+		infoPanel.setLayout(new GridLayout(6,0));
 		btnPanel.setLayout(new GridBagLayout());
 		
 		JLabel lblUsername = new JLabel("Username	");
@@ -55,6 +55,9 @@ public class CreateUser extends JPanel implements ActionListener {
 		email.setColumns(20);
 		
 		firstname = new JTextField();
+		firstname.setColumns(20);
+		
+		lastname = new JTextField();
 		lastname.setColumns(20);
 		
 		
@@ -106,11 +109,18 @@ public class CreateUser extends JPanel implements ActionListener {
 		
 		if(cmd.equals("Create user")){
 			getUsername = username.getText().toString();
-			getEmail = email.getText().toString();
 			getPassword = password.getText().toString();
 			getPassword2 = password.getText().toString();
+			getEmail = email.getText().toString();
 			getFirstname = firstname.getText().toString();
 			getLastname = lastname.getText().toString();
+			
+			System.out.println(getUsername);
+			System.out.println(getPassword);
+			System.out.println(getPassword2);
+			System.out.println(getEmail);
+			System.out.println(getFirstname);
+			System.out.println(getLastname);
 			
 			/*
 			 * insert if-statement to determine if user was created or not
