@@ -60,14 +60,12 @@ public class RetrieveData {
 					JSONObject recievedInfo = new JSONObject();
 					JSONParser parser = new JSONParser();
 					recievedInfo = (JSONObject) parser.parse(returnString); 
-					subbedroom = recievedInfo.get("SUBBEDROOMS").toString(); 
+					subbedroom = recievedInfo.get("SUBBEDROOMS").toString();
 
 					subbedroom = subbedroom.replace('[',' ');
 					subbedroom = subbedroom.replace(']',' ');
 					subbedroom.trim();
 					System.out.println(subbedroom);
-
-					System.out.println("ReturnMessageROOM:"+ returnString);
 
 					if (recievedInfo.get("REPLY").equals("succes")) {
 						System.out.println("Entered if-statement");
