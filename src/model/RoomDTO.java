@@ -64,6 +64,7 @@ public class RoomDTO implements Serializable {
 	
 		JSONObject data = new JSONObject();
 		data.put("ROOMKEY", roomKey);
+		data.put("TITLE", title);
 		data.put("OWNER", owner);
 		data.put("TYPE", type);
 		data.put("EVENTKEYS", eventKeys);
