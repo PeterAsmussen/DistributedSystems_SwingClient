@@ -6,11 +6,15 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
+
+import org.json.simple.JSONObject;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -31,7 +35,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 	 * Create the application.
 	 */
 	public HomeScreen() {
-		retrievedata.getData();
+		//retrievedata.getData();
 		initialize();
 	}
 
@@ -70,7 +74,16 @@ public class HomeScreen extends JPanel implements ActionListener{
 		 * nedenstående skal have et array af en art, som argument, for at kunne vise rum for 
 		 * den tilsvarende bruger
 		 */
-		JList<String> list = new JList(retrievedata.roomList.toArray());
+		
+		
+		DefaultListModel<String> list2 = new DefaultListModel<String>();
+		for(JSONObject u : retrievedata.getRooms()){
+			list2.addElement(u.get("TITLE").toString());
+			
+		}
+		JList list = new JList(list2);
+		
+		
 		JScrollPane listScrollPane = new JScrollPane(list);
 		listScrollPane.setVisible(true);
 		homeScreenPanel.add(listScrollPane);
@@ -99,7 +112,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 		}
 		
 		if(cmd.equals("Update")){
-			retrievedata.getData();
+			retrievedata.getRooms();
 		}
 	}
 }

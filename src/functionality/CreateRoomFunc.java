@@ -56,13 +56,13 @@ public class CreateRoomFunc {
                     out.write(combinedMessage);
                     out.close();
                     
-                    System.out.println("CombinedMessage " + combinedMessage);
+                    System.out.println("CombinedMessage from Create Room: " + combinedMessage);
                     
                     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                     String returnString = "";
                     returnString = in.readLine();
-                    System.out.println(returnString);
+                    System.out.println("Create room: "+returnString);
                     
                     JSONObject recieve = new JSONObject();
                     JSONObject recievedRoom = new JSONObject();
@@ -73,12 +73,12 @@ public class CreateRoomFunc {
 
                     if (recieve.get("REPLY").toString().equals("success")){
                     	roomkey = recievedRoom.get("ROOMKEY").toString();
-                    	System.out.println("Room successfully created");
-                    	System.out.printf("ReturnMessage", returnString);
-                    	System.out.printf(recieve.get("ROOM").toString(), "room");
+//                    	System.out.println("Room successfully created");
+//                    	System.out.printf("ReturnMessage", returnString);
+//                    	System.out.printf(recieve.get("ROOM").toString(), "room");
                     }
                     else if(recieve.get("REPLY").toString().equals("failed")){
-                    	System.out.printf("ReturnMessage", returnString);
+                    	System.out.printf("ReturnMessage from Create Room: ", returnString);
                     } 
                 } catch (Exception e) {
                 }

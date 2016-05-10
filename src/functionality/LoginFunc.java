@@ -44,7 +44,7 @@ public class LoginFunc {
                     String returnString = "";
                     returnString = in.readLine();
                     
-                    //connection.disconnect();
+                    connection.disconnect();
                     
                     JSONObject recieve = new JSONObject();
                     JSONParser parser = new JSONParser();
