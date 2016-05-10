@@ -31,6 +31,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 	 * Create the application.
 	 */
 	public HomeScreen() {
+		retrievedata.getData();
 		initialize();
 	}
 
@@ -65,8 +66,13 @@ public class HomeScreen extends JPanel implements ActionListener{
 		btnUpdate.setText("Update");
 		btnUpdate.addActionListener(this);
 		
-		JList list = new JList(retrievedata.roomkeyList);
+		/*
+		 * nedenstående skal have et array af en art, som argument, for at kunne vise rum for 
+		 * den tilsvarende bruger
+		 */
+		JList<String> list = new JList(retrievedata.roomList.toArray());
 		JScrollPane listScrollPane = new JScrollPane(list);
+		listScrollPane.setVisible(true);
 		homeScreenPanel.add(listScrollPane);
 		homeScreenPanel.add(btnPanel);
 		btnPanel.add(btnCreateRoom);

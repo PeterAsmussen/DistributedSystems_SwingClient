@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import functionality.Connection;
+import functionality.LoginFunc;
 import tests.VerifyLogin;
 
 public class LoginScreen extends JPanel implements ActionListener {
@@ -30,7 +30,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 	public static String username;
 	public String password;
 	VerifyLogin verify = new VerifyLogin();
-	Connection connection = new Connection();
+	LoginFunc connection = new LoginFunc();
 
 	public LoginScreen() {
 		initialize();

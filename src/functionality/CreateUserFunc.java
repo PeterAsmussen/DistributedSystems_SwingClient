@@ -6,6 +6,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.swing.JOptionPane;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -58,15 +60,11 @@ public class CreateUserFunc {
                     while(CreateUser.getPassword.equals(CreateUser.getPassword2)){
                    
                     	if(recieve.get("REPLY").equals("succes")){
-                          	 /*
-                          	  * TODO
-                          	  */
+                    		JOptionPane.showMessageDialog(createuser.createUserPanel, "User successfully created");
                            }
                            
                            else if(recieve.get("REPLY").equals("failed")) {
-                          	 /*
-                          	  * TODO
-                          	  */
+                        	   JOptionPane.showMessageDialog(createuser.createUserPanel, "Something went wrong :(");
                            }                       
                            
                            System.out.printf("ReturnMessage:", returnString);

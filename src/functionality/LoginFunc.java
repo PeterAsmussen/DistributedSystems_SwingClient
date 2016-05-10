@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class Connection {
+public class LoginFunc {
 	
 	public static String sessionkey;
 	
@@ -36,13 +36,15 @@ public class Connection {
                         e.printStackTrace();
                     }
                     String combinedMessage = "?logininfo=" + send.toString();
-                    System.out.println("CombinedMessage"+ combinedMessage);
+                    System.out.println("CombinedMessage "+ combinedMessage);
                     URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet"+combinedMessage);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
+                    
                     String returnString = "";
                     returnString = in.readLine();
+                    
+                    //connection.disconnect();
                     
                     JSONObject recieve = new JSONObject();
                     JSONParser parser = new JSONParser();
@@ -59,7 +61,8 @@ public class Connection {
                         success.set(false);
                         done.set(true);
                     }
-                    System.out.printf("ReturnMessage:", returnString);
+                    System.out.println("ReturnMessage: " );
+                    
                     in.close();
 
                 } catch (Exception e) {
@@ -69,7 +72,8 @@ public class Connection {
 		}).start();
 	
 		while(!done.get()){
-			System.out.println("While-løkken virker");
+			int i = 0;
+			System.out.println("Login whileloop loading..." + i++);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

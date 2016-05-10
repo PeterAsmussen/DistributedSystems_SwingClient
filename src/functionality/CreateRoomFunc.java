@@ -20,14 +20,14 @@ public class CreateRoomFunc {
 	
 	CreateRoom createroom;
 	LoginScreen loginscreen;
-	Connection connection;
+	LoginFunc connection;
 	public static String roomkey;
 
 	public void createRoom(){
 		
 		createroom = new CreateRoom();
 		loginscreen = new LoginScreen();
-		connection = new Connection();
+		connection = new LoginFunc();
 		
 		System.out.println("preThread - Create Room!");
 		new Thread(new Runnable() {
@@ -63,9 +63,11 @@ public class CreateRoomFunc {
                     String returnString = "";
                     returnString = in.readLine();
                     System.out.println(returnString);
+                    
                     JSONObject recieve = new JSONObject();
                     JSONObject recievedRoom = new JSONObject();
                     JSONParser parser = new JSONParser();
+                    
                     recieve = (JSONObject) parser.parse(returnString);
                     recievedRoom = (JSONObject) parser.parse(recieve.get("USER").toString());
 
