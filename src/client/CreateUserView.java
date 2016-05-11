@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import functionality.CreateUserFunc;
+//import functionality.CreateUserFunc;
 
 public class CreateUserView extends JPanel implements ActionListener {
 	
-	CreateUserFunc createuserfunc = new CreateUserFunc();
+	//CreateUserFunc createuserfunc = new CreateUserFunc();
 	
 	private static final long serialVersionUID = 1L;
 	public JPanel createUserPanel;
@@ -128,7 +128,7 @@ public class CreateUserView extends JPanel implements ActionListener {
 			
 			JOptionPane.showMessageDialog(createUserPanel, "User successfully created");
 			
-			createuserfunc.createUser();
+			//createuserfunc.createUser();
 		}
 		
 	}

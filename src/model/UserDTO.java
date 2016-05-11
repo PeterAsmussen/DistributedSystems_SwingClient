@@ -18,9 +18,7 @@ public class UserDTO implements Serializable {
 	private String lastname = " ";
 	private String password = " ";
 	
-	List<String> subscribedRooms = new ArrayList<>();
-	
-	
+	private List<String> subscribedRooms = new ArrayList<>();
 	
 	public UserDTO() {
 		
@@ -103,6 +101,10 @@ public class UserDTO implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public List<String> getSubscribedRooms() {
+		return subscribedRooms;
 	}
 
 	public void addRoomKey(String roomkey){

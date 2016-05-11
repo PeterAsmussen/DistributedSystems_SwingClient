@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import model.App;
 import model.UserDTO;
 
+@SuppressWarnings("unchecked")
 public class JSONHelper {
 	
 	public static UserDTO jsonToUserDTO(JSONObject obj) {
@@ -58,8 +59,6 @@ public class JSONHelper {
 		}};
 	}
 	
-	
-	
 	public static JSONObject getUpdateUserJSON(UserDTO u) {
 		return new JSONObject() {{
 			put("TASK", "UPDATEUSER");
@@ -68,6 +67,7 @@ public class JSONHelper {
 			put("FIRSTNAME", u.getFirstname());
 			put("LASTNAME", u.getLastname());
 			put("PASSWORD", u.getPassword());
+			put("SUBBEDROOMS", u.getSubscribedRooms());
 		}};
 	}
 	

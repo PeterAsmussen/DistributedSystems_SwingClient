@@ -12,9 +12,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.json.simple.JSONObject;
-
-import functionality.controllers.UserController;
+import functionality.controllers.RoomController;
 import model.App;
 
 public class HomeScreenView extends JPanel implements ActionListener{
@@ -25,7 +23,7 @@ public class HomeScreenView extends JPanel implements ActionListener{
 	private JScrollPane scrollPanel;
 	public JButton btnExit, btnCreateRoom, btnUpdate;
 //	RetrieveData retrievedata = new RetrieveData();
-	UserController usercontroller = new UserController();
+	RoomController roomcontroller = new RoomController();
 	LoginScreenView loginscreen = new LoginScreenView();
 	
 	/**
@@ -74,7 +72,7 @@ public class HomeScreenView extends JPanel implements ActionListener{
 		DefaultListModel<String> list2 = new DefaultListModel<String>();
 		try {
 			System.out.println("2222"+App.getCurrentUsername());
-			for(String u : usercontroller.getUserRoomTitleList(App.getCurrentUsername())){
+			for(String u : roomcontroller.getUserRoomTitleList(App.getCurrentUsername())){
 				list2.addElement(u);
 				
 			}
