@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import functionality.controllers.UserController;
+
 public class App {
 	
 	public static UserDTO currentUser;
@@ -15,6 +17,7 @@ public class App {
 	public static QuestionDTO currentQuestion;
 	public static AnswerDTO currentAnswer;
 	public static String sessionKey;
+	public static UserController usercontroller = new UserController();
 	
 //	App app = new App();
 //	public App getInstance() {
@@ -23,6 +26,10 @@ public class App {
 	
 	private App() {
 		
+	}
+	
+	public static UserController getUserController(){
+		return usercontroller;
 	}
 	
 	public static String getCurrentUsername() {

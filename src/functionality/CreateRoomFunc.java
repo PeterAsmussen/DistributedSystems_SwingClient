@@ -53,6 +53,7 @@ public class CreateRoomFunc {
                         e.printStackTrace();
                     }
                    
+                    
                     String combinedMessage = obj.toString();
                     URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet"+combinedMessage);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();

@@ -1,10 +1,11 @@
 package client;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,8 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import functionality.LoginFunc;
-import tests.VerifyLogin;
+import model.App;
 
 public class LoginScreenView extends JPanel implements ActionListener {
 
@@ -29,8 +29,9 @@ public class LoginScreenView extends JPanel implements ActionListener {
 	private JButton btnLogIn, btnLoginAsGuest, btnCreateUser;
 	public static String username;
 	public String password;
-	VerifyLogin verify = new VerifyLogin();
-	LoginFunc connection = new LoginFunc();
+
+//	VerifyLogin verify = new VerifyLogin();
+//	LoginFunc connection = new LoginFunc();
 
 	public LoginScreenView() {
 		initialize();
@@ -99,29 +100,36 @@ public class LoginScreenView extends JPanel implements ActionListener {
 		if(cmd.equals("Log in")){
 			username = txtUsername.getText();
 			String password = String.valueOf(txtPassword.getPassword());
-			if(connection.login(username,password)){
-				
-				HomeScreenView homescreen = new HomeScreenView();
-				MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
-				loginPanel.setVisible(false);
-				System.out.println("Log in was pressed");
-				
-			} else {
-				
-				JOptionPane.showMessageDialog(loginPanel, "Bad password, try again");
-				System.out.println("Incorrect password!");
-				
+			
+			try {
+				if(App.getUserController().login(username, password)!= null){
+					
+					HomeScreenView homescreen = new HomeScreenView();
+					MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
+					loginPanel.setVisible(false);
+					System.out.println("Log in was pressed");
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(loginPanel, "Bad password, try again");
+					System.out.println("Incorrect password!");
+					
+				}
+			} catch (HeadlessException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 		}
 		
 		if(cmd.equals("Login as guest")){
-			
-			int i = verify.randomInteger(1, 8);
-			HomeScreenView homescreen = new HomeScreenView();
-			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
-			loginPanel.setVisible(false);
-			System.out.println("Login as guest was pressed!");
-			
+//			
+//			int i = verify.randomInteger(1, 8);
+//			HomeScreenView homescreen = new HomeScreenView();
+//			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
+//			loginPanel.setVisible(false);
+//			System.out.println("Login as guest was pressed!");
+//			
 		}
 		
 		if(cmd.equals("Create user")){
