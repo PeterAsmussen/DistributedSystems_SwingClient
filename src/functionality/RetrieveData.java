@@ -36,7 +36,11 @@ public class RetrieveData {
 
 		new Thread(new Runnable() {
 			public void run() {
+				
+				System.out.println("--------------------------------");
 				System.out.println("Pre-retrieve data");
+				System.out.println("--------------------------------");
+				
 				try {
 					JSONObject obj = new JSONObject();
 					try {

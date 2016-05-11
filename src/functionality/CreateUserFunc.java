@@ -72,7 +72,6 @@ public class CreateUserFunc {
                            
                            }
                     }
-                    
                  catch (Exception e) {
 	            	System.out.printf("Exception", e.toString());
                  }

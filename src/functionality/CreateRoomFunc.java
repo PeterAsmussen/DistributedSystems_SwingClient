@@ -29,7 +29,10 @@ public class CreateRoomFunc {
 		loginscreen = new LoginScreen();
 		connection = new LoginFunc();
 		
+		System.out.println("--------------------------------");
 		System.out.println("preThread - Create Room!");
+		System.out.println("--------------------------------");
+		
 		new Thread(new Runnable() {
             public void run() {
                 try {
@@ -71,6 +74,8 @@ public class CreateRoomFunc {
 
                     if (recieve.get("REPLY").toString().equals("success")){
                     	roomkey = recievedRoom.get("ROOMKEY").toString();
+                    	
+                    	
                     	
                     	
                     }

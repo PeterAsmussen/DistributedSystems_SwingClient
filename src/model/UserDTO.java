@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
-import net.minidev.json.JSONArray;
+import org.json.JSONArray;
 
 public class UserDTO implements Serializable {
 	

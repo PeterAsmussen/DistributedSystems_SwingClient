@@ -21,7 +21,10 @@ public class LoginFunc {
 		AtomicBoolean success = new AtomicBoolean(false);
 		AtomicBoolean done = new AtomicBoolean(false);
 		
+		System.out.println("--------------------------------");
 		System.out.println("preThread - Login");
+		System.out.println("--------------------------------");
+		
 		new Thread(new Runnable() {
 			
             public void run() {
