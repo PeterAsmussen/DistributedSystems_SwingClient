@@ -37,13 +37,14 @@ public class UserController {
 		try {
 			reply = (JSONObject) parser.parse(in.readLine());
 			if(App.isReplySuccessful(reply)) {
-				App.sessionKey = (String) reply.get("SESSIONKEY");
-				// få user ud fra navn
+				App.sessionKey = reply.get("SESSIONKEY").toString();
+				// fï¿½ user ud fra navn
 				JSONObject obj = App.getUserJSON(username);
 				c = App.getHttpConnectionFromObject(obj);
 				in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 				reply = (JSONObject) parser.parse(in.readLine());
 				user = App.jsonToUserDTO(reply);
+				App.currentUser = user;
 				return user;
 			} System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		} catch (ParseException e) {

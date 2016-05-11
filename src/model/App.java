@@ -52,7 +52,7 @@ public class App {
 	public static JSONObject getUserJSON(String username) {
 		return new JSONObject() {{
 			put("TASK", "getuser");
-			put("USERNAME", getCurrentUsername());
+			put("USERNAME", username);
 			put("SESSIONKEY", sessionKey);
 			put("GETNAME", username);
 		}};
@@ -76,6 +76,10 @@ public class App {
 			put("SESSIONKEY", sessionKey);
 			put("USERNAME", getCurrentUsername());
 		}};
+	}
+	
+	public static JSONObject getUpdateUserJSON() {
+		return null;
 	}
 	
 	public static boolean isReplySuccessful(JSONObject obj) {
