@@ -17,6 +17,7 @@ public class RoomDTO implements Serializable {
 	//String eventKeys = "";
 	String type = "";
 	String title = "";
+	
 	List<String> eventKeys = new ArrayList<>();
 
 	public RoomDTO(String title,String roomKey, String owner, String type) {

@@ -9,8 +9,8 @@ import java.net.URL;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import client.CreateRoom;
-import client.LoginScreen;
+import client.CreateRoomView;
+import client.LoginScreenView;
 
 public class CreateRoomFunc {
 	
@@ -18,15 +18,18 @@ public class CreateRoomFunc {
 	 * Mere eller mindre det samme som i Connection.java, dog tilpasset til CreateRoom 
 	 */
 	
-	CreateRoom createroom;
-	LoginScreen loginscreen;
+	
+	
+	
+	CreateRoomView createroom;
+	LoginScreenView loginscreen;
 	LoginFunc connection;
 	public static String roomkey;
 
 	public void createRoom(){
 		
-		createroom = new CreateRoom();
-		loginscreen = new LoginScreen();
+		createroom = new CreateRoomView();
+		loginscreen = new LoginScreenView();
 		connection = new LoginFunc();
 		
 		System.out.println("preThread - Create Room!");

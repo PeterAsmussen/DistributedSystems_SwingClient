@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
-import net.minidev.json.JSONArray;
+import org.json.JSONArray;
 
 public class UserDTO implements Serializable {
 	
@@ -140,8 +140,9 @@ public class UserDTO implements Serializable {
 			String password = obj.get("PASSWORD").toString();
 			// skal der måske laves en til objekter uden subbed rooms?
 			user = new UserDTO(username, email, firstname, lastname, password, subbedList);
+			return user;
 		}
-		
+		return null;	
 	}
 	
 	public static boolean isJsonUser(JSONObject obj) {

@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 import functionality.CreateUserFunc;
 
-public class CreateUser extends JPanel implements ActionListener {
+public class CreateUserView extends JPanel implements ActionListener {
 	
 	CreateUserFunc createuserfunc = new CreateUserFunc();
 	
@@ -23,7 +23,7 @@ public class CreateUser extends JPanel implements ActionListener {
 	private JTextField username, password, repeatPassword, email, firstname, lastname;
 	public static String getUsername, getEmail, getPassword, getPassword2, getFirstname, getLastname;
 	
-	public CreateUser(){
+	public CreateUserView(){
 		initialize();
 	}
 
@@ -100,7 +100,7 @@ public class CreateUser extends JPanel implements ActionListener {
 		}
 		
 		if(cmd.equals("Back")){
-			LoginScreen loginscreen = new LoginScreen();
+			LoginScreenView loginscreen = new LoginScreenView();
 			MainWindow.frame.getContentPane().add(loginscreen.loginPanel);
 			createUserPanel.setVisible(false);
 			
