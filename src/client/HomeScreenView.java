@@ -49,7 +49,6 @@ public class HomeScreenView extends JPanel implements ActionListener{
 		JPanel btnPanel = new JPanel();
 		homeScreenPanel.setLayout(new GridLayout(2,0));
 		btnPanel.setLayout(new GridBagLayout());
-		
 
 		/*
 		 * Knapper oprettes
