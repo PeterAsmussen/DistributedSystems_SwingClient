@@ -45,6 +45,19 @@ public class JSONHelper {
 		}};
 	}
 	
+	public static JSONObject getCreateUserJSON(String username, String passone, String passtwo, 
+			String email, String firstname, String lastname){
+		return new JSONObject(){{
+			put("TASK", "CREATEUSER");
+			put("USERNAME", username);
+			put("PASSONE", passone);
+			put("PASSTWO", passtwo);
+			put("EMAIL", email);
+			put("FIRSTNAME", firstname);
+			put("LASTNAEM", lastname);
+		}};
+	}
+	
 	
 	
 	public static JSONObject getUpdateUserJSON(UserDTO u) {
@@ -57,5 +70,84 @@ public class JSONHelper {
 			put("PASSWORD", u.getPassword());
 		}};
 	}
-
+	
+	
+	public static JSONObject getLoginJSON(UserDTO u){
+		return new JSONObject(){{
+			put("TASK", "loginauth");
+			put("USERNAME", u.getUsername());
+			put("PASSWORD", u.getPassword());
+		}};
+	}
+	
+	public static JSONObject getCreateQuestionJSON(String body, String timestamp, String title){
+		return new JSONObject(){{
+			put("TASK", "CREATEQUESTION");
+			put("BODY", body);
+			put("TIMESTAMP", timestamp);
+			put("SENDER", App.getCurrentUsername());
+			put("TITLE", title);
+		}};
+	}
+	
+	public static JSONObject getCreateAnswerJSON(String body, String timestamp) {
+		return new JSONObject(){{
+			put("TASK", "CREATEANSWER");
+			put("BODY", body);
+			put("TIMESTAMP", timestamp);
+			put("SENDER", App.getCurrentUsername());
+		}};
+	}
+	
+	public static JSONObject getCreateEventJSON(String title, String timestamp) {
+		return new JSONObject(){{
+			put("TASK", "CREATEEVENT");
+			put("TITLE", title);
+			put("TIMESTAMP", timestamp);
+			put("CREATOR", App.getCurrentUsername());
+		}};
+	}
+	
+	public static JSONObject getUpdateQuestionJSON(String answerkeys, String body, String questionkeys,
+			String timestamp, String sender) {
+		return new JSONObject(){{
+			put("TASK", "UPDATEQUESTION");
+			put("BODY", body);
+			put("ANSWERKEYS", answerkeys);
+			put("QUESTIONKEYS", questionkeys);
+			put("TIMESTAMP", timestamp);
+			put("SENDER", sender);
+		}};
+	}
+	
+	public static JSONObject getUpdateEventJSON(String questionkeys, String timestamp, String eventkey, String creator) {
+		return new JSONObject(){{
+			put("TASK", "UPDATEEVENT");
+			put("QUESTIONKEYS", questionkeys);
+			put("TIMESTAMP", timestamp);
+			put("EVENTKEY", eventkey);
+			put("CREATOR", creator);
+		}};
+	}
+	
+	public static JSONObject getUpdateAnswerJSON(String answerkey, String body, String timestamp, String sender) {
+		return new JSONObject(){{
+			put("TASK", "UPDATEANSWER");
+			put("ANSWERKEY", answerkey);
+			put("BODY", body);
+			put("TIMESTAMP", timestamp);
+			put("SENDER", sender);
+		}};
+	}
+	
+	public static JSONObject getUpdateRoomJSON(String eventkeys, String roomkeys, String title, String owner) {
+		return new JSONObject(){{
+			put("TASK", "UPDATEROOM");
+			put("EVENTKEYS", eventkeys);
+			put("ROOMKEYS", roomkeys);
+			put("TITLE", title);
+			put("OWNER", owner);
+		}};
+	}
+	
 }
