@@ -53,7 +53,7 @@ public class CreateUserFunc {
 
                     String returnString = "";
                     returnString = in.readLine();
-                    JSONObject recieve = new JSONObject();
+                    JSONObject recieve = (JSONObject) (new JSONParser()).parse(returnString);
                     System.out.printf(returnString, "");
 
                     
