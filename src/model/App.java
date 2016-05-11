@@ -67,6 +67,17 @@ public class App {
 		}};
 	}
 	
+	public static JSONObject getCreateRoomJSON(String title, String type) {
+		return new JSONObject() {{
+			put("TASK", "CREATEROOM");
+			put("TITLE", title);
+			put("OWNER", getCurrentUsername());
+			put("TYPE", type);
+			put("SESSIONKEY", sessionKey);
+			put("USERNAME", getCurrentUsername());
+		}};
+	}
+	
 	public static boolean isReplySuccessful(JSONObject obj) {
 		return obj.get("REPLY").equals("succes");
 	}

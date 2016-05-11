@@ -12,12 +12,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import client.LoginScreen;
+import client.LoginScreenView;
 
 public class RetrieveData {
 
 	CreateRoomFunc createroom;
-	LoginScreen loginscreen;
+	LoginScreenView loginscreen;
 	LoginFunc connection;
 	public static String subbedroom;
 	String roomkey;
@@ -31,7 +31,7 @@ public class RetrieveData {
 		AtomicBoolean done = new AtomicBoolean(false);
 
 		createroom = new CreateRoomFunc();
-		loginscreen = new LoginScreen();
+		loginscreen = new LoginScreenView();
 		connection = new LoginFunc();
 
 		new Thread(new Runnable() {

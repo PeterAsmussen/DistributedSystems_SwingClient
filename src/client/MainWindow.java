@@ -10,7 +10,7 @@ import java.awt.BorderLayout;
 public class MainWindow {
 
 	public static JFrame frame;
-	static LoginScreen loginscreen;
+	static LoginScreenView loginscreen;
 
 	/**
 	 * Launch the application.
@@ -21,7 +21,7 @@ public class MainWindow {
 				try {
 					MainWindow window = new MainWindow();
 					window.frame.setVisible(true);
-					loginscreen = new LoginScreen();
+					loginscreen = new LoginScreenView();
 					frame.getContentPane().add(loginscreen.loginPanel);
 				} catch (Exception e) {
 					e.printStackTrace();

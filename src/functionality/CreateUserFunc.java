@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import client.CreateUser;
+import client.CreateUserView;
 
 public class CreateUserFunc {
 	
-	CreateUser createuser;
+	CreateUserView createuser;
 
 	public void createUser(){
 
@@ -57,7 +57,7 @@ public class CreateUserFunc {
                     System.out.printf(returnString, "");
 
                     
-                    while(CreateUser.getPassword.equals(CreateUser.getPassword2)){
+                    while(CreateUserView.getPassword.equals(CreateUserView.getPassword2)){
                    
                     	if(recieve.get("REPLY").equals("succes")){
                     		JOptionPane.showMessageDialog(createuser.createUserPanel, "User successfully created");

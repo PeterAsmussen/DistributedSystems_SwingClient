@@ -15,7 +15,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import functionality.CreateRoomFunc;
 import tests.Test_LocalRooms;
 
-public class CreateRoom extends JPanel implements ActionListener {
+public class CreateRoomView extends JPanel implements ActionListener {
 
 	/**
 	 * 
@@ -28,12 +28,12 @@ public class CreateRoom extends JPanel implements ActionListener {
 	public static String roomname;
 	private Test_LocalRooms testrooms = new Test_LocalRooms();
 	CreateRoomFunc createroomfunc = new CreateRoomFunc();
-	HomeScreen homescreen;
+	HomeScreenView homescreen;
 
 	/**
 	 * Create the application.
 	 */
-	public CreateRoom() {
+	public CreateRoomView() {
 		initialize();
 	}
 
@@ -93,7 +93,7 @@ public class CreateRoom extends JPanel implements ActionListener {
 			
 			roomname = txtRoomName.getText().toString();
 			createroomfunc.createRoom();
-			homescreen = new HomeScreen();
+			homescreen = new HomeScreenView();
 			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 			
 			System.out.println("Done-button was pressed:");

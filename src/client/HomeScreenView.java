@@ -21,7 +21,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import functionality.RetrieveData;
 import tests.Test_LocalRooms;
 
-public class HomeScreen extends JPanel implements ActionListener{
+public class HomeScreenView extends JPanel implements ActionListener{
 
 	public JPanel homeScreenPanel;
 	private JList roomList;
@@ -29,12 +29,12 @@ public class HomeScreen extends JPanel implements ActionListener{
 	private JScrollPane scrollPanel;
 	public JButton btnExit, btnCreateRoom, btnUpdate;
 	RetrieveData retrievedata = new RetrieveData();
-	LoginScreen loginscreen = new LoginScreen();
+	LoginScreenView loginscreen = new LoginScreenView();
 	
 	/**
 	 * Create the application.
 	 */
-	public HomeScreen() {
+	public HomeScreenView() {
 		//retrievedata.getData();
 		initialize();
 	}
@@ -106,7 +106,7 @@ public class HomeScreen extends JPanel implements ActionListener{
 		if(cmd.equals("Create room")){
 			System.out.println("Create Room was pressed, proceeding...");
 			homeScreenPanel.setVisible(false);
-			CreateRoom createroom = new CreateRoom();
+			CreateRoomView createroom = new CreateRoomView();
 			MainWindow.frame.getContentPane().add(createroom.createroomPanel);
 			createroom.setVisible(true);	
 		}

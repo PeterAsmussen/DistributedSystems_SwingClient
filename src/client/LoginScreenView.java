@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import functionality.LoginFunc;
 import tests.VerifyLogin;
 
-public class LoginScreen extends JPanel implements ActionListener {
+public class LoginScreenView extends JPanel implements ActionListener {
 
 	
 	/**
@@ -32,7 +32,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 	VerifyLogin verify = new VerifyLogin();
 	LoginFunc connection = new LoginFunc();
 
-	public LoginScreen() {
+	public LoginScreenView() {
 		initialize();
 	}
 
@@ -101,7 +101,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 			String password = String.valueOf(txtPassword.getPassword());
 			if(connection.login(username,password)){
 				
-				HomeScreen homescreen = new HomeScreen();
+				HomeScreenView homescreen = new HomeScreenView();
 				MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 				loginPanel.setVisible(false);
 				System.out.println("Log in was pressed");
@@ -117,7 +117,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 		if(cmd.equals("Login as guest")){
 			
 			int i = verify.randomInteger(1, 8);
-			HomeScreen homescreen = new HomeScreen();
+			HomeScreenView homescreen = new HomeScreenView();
 			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 			loginPanel.setVisible(false);
 			System.out.println("Login as guest was pressed!");
@@ -126,7 +126,7 @@ public class LoginScreen extends JPanel implements ActionListener {
 		
 		if(cmd.equals("Create user")){
 			
-			CreateUser createuser = new CreateUser();
+			CreateUserView createuser = new CreateUserView();
 			MainWindow.frame.getContentPane().add(createuser.createUserPanel);
 			loginPanel.setVisible(false);
 			System.out.println("Create user was pressed!");
