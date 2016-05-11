@@ -48,15 +48,13 @@ public class CreateRoomFunc {
                     }
                    
                     String combinedMessage = obj.toString();
-                    URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet");
+                    URL url = new URL("http://52.58.112.107:8080/HelpingTeacherServer2/HTSservlet"+combinedMessage);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setDoOutput(true);
                     connection.setRequestMethod("PUT");
                     OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
                     out.write(combinedMessage);
                     out.close();
-                    
-                    System.out.println("CombinedMessage from Create Room: " + combinedMessage);
                     
                     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
@@ -73,9 +71,8 @@ public class CreateRoomFunc {
 
                     if (recieve.get("REPLY").toString().equals("success")){
                     	roomkey = recievedRoom.get("ROOMKEY").toString();
-//                    	System.out.println("Room successfully created");
-//                    	System.out.printf("ReturnMessage", returnString);
-//                    	System.out.printf(recieve.get("ROOM").toString(), "room");
+                    	
+                    	
                     }
                     else if(recieve.get("REPLY").toString().equals("failed")){
                     	System.out.printf("ReturnMessage from Create Room: ", returnString);
