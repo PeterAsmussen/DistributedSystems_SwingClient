@@ -80,7 +80,6 @@ public class CreateRoomView extends JPanel implements ActionListener {
 		btnPanel.add(btnDone);
 		btnPanel.add(btnExit);
 	
-		
 	}
 
 	@Override

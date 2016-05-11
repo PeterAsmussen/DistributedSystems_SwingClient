@@ -102,8 +102,8 @@ public class LoginScreenView extends JPanel implements ActionListener {
 			String password = String.valueOf(txtPassword.getPassword());
 			
 			try {
-				if(App.getUserController().login(username, password)!= null){
-					
+				if(App.getUserController().login(username, password) != null){
+					System.out.println(App.getCurrentUsername());
 					HomeScreenView homescreen = new HomeScreenView();
 					MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 					loginPanel.setVisible(false);

@@ -32,24 +32,26 @@ public class RoomController {
         out.write(obj.toString());
         out.close();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		
-        
-        String response = "";
+      
+        String response = "lol";
         response = in.readLine();
         
         System.out.println("-------------------------------");
         System.out.println("Create room: "+response);
         System.out.println("-------------------------------");
         
-        JSONObject recieve = (JSONObject) parser.parse(response); 
-        String roomkey = recieve.get("ROOMKEY").toString();
+        JSONObject reply = (JSONObject) parser.parse(response); 
+        reply = (JSONObject) reply.get("ROOM");
+        String roomkey = reply.get("ROOMKEY").toString();
         App.currentUser.addRoomKey(roomkey);
         
-        JSONObject send = App.currentUser.toJSONObject();
-        con = App.getHttpConnectionFromObject(send);
+        JSON
+        out = new OutputStreamWriter(con.getOutputStream());
+        out.write(send.toString());
         
+        out.close();
+
         return null;
-	
 	
 	}
 }

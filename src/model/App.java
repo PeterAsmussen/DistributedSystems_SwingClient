@@ -55,35 +55,6 @@ public class App {
 			return null;
 		}
 	}
-
-	public static JSONObject getUserJSON(String username) {
-		return new JSONObject() {{
-			put("TASK", "getuser");
-			put("USERNAME", username);
-			put("SESSIONKEY", sessionKey);
-			put("GETNAME", username);
-		}};
-	}
-	
-	public static JSONObject getRoomJSON(String roomKey) {
-		return new JSONObject() {{
-			put("TASK", "getroom");
-			put("USERNAME", getCurrentUsername());
-			put("SESSIONKEY", sessionKey);
-			put("GETROOM", roomKey);
-		}};
-	}
-	
-	public static JSONObject getCreateRoomJSON(String title, String type) {
-		return new JSONObject() {{
-			put("TASK", "CREATEROOM");
-			put("TITLE", title);
-			put("OWNER", getCurrentUsername());
-			put("TYPE", type);
-			put("SESSIONKEY", sessionKey);
-			put("USERNAME", getCurrentUsername());
-		}};
-	}
 	
 	public static JSONObject getUpdateUserJSON() {
 		return null;
@@ -93,12 +64,7 @@ public class App {
 		return obj.get("REPLY").equals("succes");
 	}
 	
-	public static UserDTO jsonToUserDTO(JSONObject obj) {
-		return new UserDTO(obj.get("USERNAME").toString(), obj.get("EMAIL").toString(),
-				obj.get("FIRSTNAME").toString(), obj.get("LASTNAME").toString(),
-				obj.get("PASSWORD").toString(), (List<String>) obj.get("SUBBEDROOMS"));
-		// Kan man bare caste subbedrooms til en List?
-	}
+
 	
 	
 	

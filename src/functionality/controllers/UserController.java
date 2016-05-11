@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import functionality.JSONHelper;
 import model.App;
 import model.UserDTO;
 
@@ -37,17 +38,19 @@ public class UserController {
 		try {
 			reply = (JSONObject) parser.parse(in.readLine());
 			if(App.isReplySuccessful(reply)) {
-				System.out.println(reply.toString());
+				System.out.println("----->"+reply.toString());
 				App.sessionKey = reply.get("SESSIONKEY").toString();
 				// f� user ud fra navn
-				JSONObject obj = App.getUserJSON(username);
+				JSONObject obj = JSONHelper.getUserJSON(username);
 				c = App.getHttpConnectionFromObject(obj);
 				in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 				reply = (JSONObject) parser.parse(in.readLine());
 				reply = (JSONObject) parser.parse(reply.get("USER").toString());
-				System.out.println(reply.toString());
+				System.out.println("###>"+reply.toString());
 				
-				user = App.jsonToUserDTO(reply);
+				user = JSONHelper.jsonToUserDTO(reply);
+				App.currentUser = user;
+				System.out.println("Aaa"+ App.getCurrentUsername());
 				return user;
 			} System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		} catch (ParseException e) {
@@ -57,12 +60,17 @@ public class UserController {
 		return null;
 	}
 	
+	public void logout() {
+		App.currentUser = null;
+	}
+	
 	public List<String> getUserRoomKeyList(String username) throws IOException {
 		List<String> list = new ArrayList<>();
-		JSONObject obj = App.getUserJSON(App.getCurrentUsername());
+		JSONObject obj = App.getUserJSON(username);
 		HttpURLConnection c = App.getHttpConnectionFromObject(obj);
+		System.out.println("yo mama");
 		BufferedReader in = new BufferedReader(new InputStreamReader(c.getInputStream()));
-		
+		System.out.println("yo papa");
 		String response = in.readLine();
 		c.disconnect();
 		in.close();
@@ -75,7 +83,11 @@ public class UserController {
 		}
 		
 		if(reply.get("REPLY").equals("succes")) {
+			System.out.println("this shit" +reply.toString());
+			reply = (JSONObject) reply.get("USER");
 			String sub = reply.get("SUBBEDROOMS").toString();
+			System.out.println("more shit" + reply.toString());
+			System.out.println("username: "+ App.getCurrentUsername());
 			String[] rooms = getRoomStringArrayFromJSONRoomString(sub);
 			list = Arrays.asList(rooms);
 		} else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
@@ -85,11 +97,14 @@ public class UserController {
 	
 	public List<String> getUserRoomTitleList(String username) throws IOException {
 		List<String> keyList = getUserRoomKeyList(username);
+		System.out.println(keyList.toString());
 		List<String> nameList = new ArrayList<>();
-		BufferedReader in = null;
+		BufferedReader in;
 		String response;
 		for(String s : keyList) {
+			System.out.println("string:"+ s);
 			JSONObject obj = App.getRoomJSON(s);
+			System.out.println("object: "+obj.toString());
 			HttpURLConnection c = App.getHttpConnectionFromObject(obj);
 			in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 			response = in.readLine();
@@ -102,11 +117,12 @@ public class UserController {
 				e.printStackTrace();
 			}
 			if(reply.get("REPLY").equals("succes")){
+				reply = (JSONObject) reply.get("ROOM");
 				String title = reply.get("TITLE").toString();
 				nameList.add(title);
 			} else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		}
-		in.close();
+		//in.close();
 		return nameList;
 	}
 	
@@ -115,7 +131,7 @@ public class UserController {
 		str = s.replace('[', '_');
 		str = str.replace(']', '_');
 		str = str.replace('"', '_');
-		str.replace("_", "");
+		str = str.replaceAll("_","");
 		return str.split(",");
 	}
 
