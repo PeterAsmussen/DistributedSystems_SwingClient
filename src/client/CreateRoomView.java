@@ -4,15 +4,18 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.json.simple.parser.ParseException;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import functionality.CreateRoomFunc;
+import functionality.controllers.RoomController;
 import tests.Test_LocalRooms;
 
 public class CreateRoomView extends JPanel implements ActionListener {
@@ -26,14 +29,15 @@ public class CreateRoomView extends JPanel implements ActionListener {
 	public JLabel lblRoomName, lblTopicQuestion;
 	public JTextField txtRoomName, txtTopicQuestion;
 	public static String roomname;
-	private Test_LocalRooms testrooms = new Test_LocalRooms();
-	CreateRoomFunc createroomfunc = new CreateRoomFunc();
 	HomeScreenView homescreen;
+	RoomController roomcontroller;
+
 
 	/**
 	 * Create the application.
 	 */
 	public CreateRoomView() {
+		roomcontroller = new RoomController();
 		initialize();
 	}
 
@@ -89,15 +93,20 @@ public class CreateRoomView extends JPanel implements ActionListener {
 			System.exit(0);
 		}
 		if(cmd.equals("Done")){
-			//testrooms.rooms.add(txtRoomName.getText());
 			
-			roomname = txtRoomName.getText().toString();
-			createroomfunc.createRoom();
+			try {
+				roomcontroller.createRoom(txtRoomName.getText().toString(), "public");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			
+			
+//			roomname = txtRoomName.getText().toString();
+//			createroomfunc.createRoom();
 			homescreen = new HomeScreenView();
 			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
-			
-			System.out.println("Done-button was pressed:");
-			System.out.println(testrooms.rooms);
 			
 			createroomPanel.setVisible(false);
 

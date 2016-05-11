@@ -2,7 +2,6 @@ package functionality;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import client.LoginScreenView;
+import model.App;
 
 public class RetrieveData {
 
@@ -46,7 +46,7 @@ public class RetrieveData {
 					try {
 						obj.put("TASK", "getuser");
 						obj.put("USERNAME", loginscreen.username);
-						obj.put("SESSIONKEY", LoginFunc.sessionkey);
+						obj.put("SESSIONKEY", App.sessionKey);
 						obj.put("GETNAME" , loginscreen.username);
 
 					} catch (Exception e) {

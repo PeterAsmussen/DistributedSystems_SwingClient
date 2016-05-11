@@ -1,25 +1,21 @@
 package client;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
 
 import org.json.simple.JSONObject;
 
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import functionality.RetrieveData;
-import tests.Test_LocalRooms;
+import functionality.controllers.UserController;
+import model.App;
 
 public class HomeScreenView extends JPanel implements ActionListener{
 
@@ -28,14 +24,14 @@ public class HomeScreenView extends JPanel implements ActionListener{
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
 	public JButton btnExit, btnCreateRoom, btnUpdate;
-	RetrieveData retrievedata = new RetrieveData();
+//	RetrieveData retrievedata = new RetrieveData();
+	UserController usercontroller = new UserController();
 	LoginScreenView loginscreen = new LoginScreenView();
 	
 	/**
 	 * Create the application.
 	 */
 	public HomeScreenView() {
-		//retrievedata.getData();
 		initialize();
 	}
 
@@ -77,9 +73,13 @@ public class HomeScreenView extends JPanel implements ActionListener{
 		
 		
 		DefaultListModel<String> list2 = new DefaultListModel<String>();
-		for(JSONObject u : retrievedata.getRooms()){
-			list2.addElement(u.get("TITLE").toString());
-			
+		try {
+			for(String u : usercontroller.getUserRoomTitleList(App.getCurrentUsername())){
+				list2.addElement(u);
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		JList list = new JList(list2);
 		
@@ -112,7 +112,7 @@ public class HomeScreenView extends JPanel implements ActionListener{
 		}
 		
 		if(cmd.equals("Update")){
-			retrievedata.getRooms();
+//			retrievedata.getRooms();
 		}
 	}
 }

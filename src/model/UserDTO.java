@@ -105,6 +105,10 @@ public class UserDTO implements Serializable {
 		this.username = username;
 	}
 
+	public void addRoomKey(String roomkey){
+		subscribedRooms.add(roomkey);
+	}
+	
 	@Override
 	public String toString() {
 		return "UserDTO{" +
