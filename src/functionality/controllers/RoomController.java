@@ -26,6 +26,7 @@ public class RoomController {
 	}
 	
 	public boolean createRoom(String roomTitle, String type) throws IOException, ParseException {
+		
 		JSONObject obj = JSONHelper.getCreateRoomJSON(roomTitle, type);
 		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
 		
@@ -38,6 +39,7 @@ public class RoomController {
         
         String response;
         response = in.readLine();
+      
         con.disconnect();
         
         System.out.println("-------------------------------");
