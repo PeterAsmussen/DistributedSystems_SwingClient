@@ -14,10 +14,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import functionality.JSONHelper;
+import functionality.controllers.interfaces.IRoomController;
 import model.App;
 import model.RoomDTO;
 
-public class RoomController {
+public class RoomController implements IRoomController {
 	
 	JSONParser parser;
 	
@@ -89,16 +90,18 @@ public class RoomController {
 			String sub = reply.get("SUBBEDROOMS").toString();
 			//System.out.println("more shit" + reply.toString());
 			//System.out.println("username: "+ App.getCurrentUsername());
-			String[] rooms = JSONHelper.getRoomStringArrayFromJsonRoomString(sub);
+			String[] rooms = JSONHelper.getStringArrayFromJsonListString(sub);
 			list = Arrays.asList(rooms);
+			list = new ArrayList<>(list);
+			return list;
 		} else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		
-		return list;	
+		return null;	
 	}
 	
 	public List<String> getUserRoomTitleList(String username) throws IOException {
 		List<String> keyList = getUserRoomKeyList(username);
-		System.out.println("getUserRoomTitleList keyList:"+keyList.toString());
+		//System.out.println("getUserRoomTitleList keyList:"+keyList.toString());
 		List<String> nameList = new ArrayList<>();
 		BufferedReader in;
 		String response;
@@ -125,6 +128,24 @@ public class RoomController {
 		}
 		//in.close();
 		return nameList;
+	}
+	
+	public RoomDTO getRoom(String roomkey) throws IOException, ParseException {
+		RoomDTO room = null;
+		JSONObject obj = JSONHelper.getRoomJSON(roomkey);
+		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String response = in.readLine();
+		con.disconnect();
+		in.close();
+		JSONObject reply = (JSONObject) parser.parse(response);
+		if(reply.get("REPLY").equals("succes")) {
+			reply = (JSONObject) reply.get("ROOM");
+			room = JSONHelper.jsonToRoomDTO(reply);
+			return room;
+		}
+		
+		return room;
 	}
 	
 	

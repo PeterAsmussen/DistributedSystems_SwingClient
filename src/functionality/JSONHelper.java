@@ -7,25 +7,82 @@ import java.util.List;
 import org.json.simple.JSONObject;
 
 import model.App;
+import model.EventDTO;
+import model.RoomDTO;
 import model.UserDTO;
 
 @SuppressWarnings("unchecked")
 public class JSONHelper {
+
 	
 	public static UserDTO jsonToUserDTO(JSONObject obj) {
-		String username = obj.get("USERNAME").toString().trim();
-		String email = obj.get("EMAIL").toString().trim();
-		String firstname = obj.get("FIRSTNAME").toString().trim();
-		String lastname = obj.get("LASTNAME").toString().trim();
-		String password = obj.get("PASSWORD").toString().trim();
-		String subbed =  obj.get("SUBBEDROOMS").toString();
-		List<String> subbedList = Arrays.asList(getRoomStringArrayFromJsonRoomString(subbed));
-		for(String s : subbedList) {
-			System.out.println("Her er s: "+s);
-		}
-		subbedList = new ArrayList<>(subbedList);
-		return new UserDTO(username, email, firstname, lastname, password, subbedList);
-		// Kan man bare caste subbedrooms til en List?
+		if (isJsonUser(obj)) {
+			String username = obj.get("USERNAME").toString().trim();
+			String email = obj.get("EMAIL").toString().trim();
+			String firstname = obj.get("FIRSTNAME").toString().trim();
+			String lastname = obj.get("LASTNAME").toString().trim();
+			String password = obj.get("PASSWORD").toString().trim();
+			String subbed = obj.get("SUBBEDROOMS").toString();
+			List<String> subbedList = Arrays.asList(getStringArrayFromJsonListString(subbed));
+			subbedList = new ArrayList<>(subbedList);
+			return new UserDTO(username, email, firstname, lastname, password, subbedList);
+			// Kan man bare caste subbedrooms til en List?
+		} return null;
+	}
+	
+	public static boolean isJsonUser(JSONObject obj) {
+		if(!obj.containsKey("USERNAME")) return false;
+		if(!obj.containsKey("EMAIL")) return false;
+		if(!obj.containsKey("FIRSTNAME")) return false;
+		if(!obj.containsKey("LASTNAME")) return false;
+		if(!obj.containsKey("PASSWORD")) return false;
+		if(!obj.containsKey("SUBBEDROOMS")) return false;
+		return true;
+	}
+	
+	public static EventDTO jsonToEventDTO(JSONObject obj) {
+		if(isJsonEvent(obj)) {
+			String title = obj.get("TITLE").toString();
+			String creator = obj.get("CREATOR").toString();
+			String timestamp = obj.get("TIMESTAMP").toString();
+			String eventkey = obj.get("EVENTKEY").toString();
+			String questionsString = obj.get("QUESTIONKEYS").toString();
+			List<String> questions = Arrays.asList(getStringArrayFromJsonListString(questionsString));
+			questions = new ArrayList<>(questions);
+			return new EventDTO(title, timestamp, eventkey, creator, questions);
+		} return null;
+	}
+	
+	public static boolean isJsonEvent(JSONObject obj) {
+		if(!obj.containsKey("CREATOR")) return false;
+		if(!obj.containsKey("TIMESTAMP")) return false;
+		if(!obj.containsKey("EVENTKEY")) return false;
+		if(!obj.containsKey("QUESTIONKEYS")) return false;
+		if(!obj.containsKey("TITLE")) return false;
+		return true;
+	}
+	
+	public static RoomDTO jsonToRoomDTO(JSONObject obj) {
+		if(isJsonRoom(obj)) {
+			String owner = obj.get("OWNER").toString();
+			String roomkey = obj.get("ROOMKEY").toString();
+			String title = obj.get("TITLE").toString();
+			String type = obj.get("TYPE").toString();
+			String events = obj.get("EVENTKEYS").toString();
+			List<String> eventsList = Arrays.asList(getStringArrayFromJsonListString(events));
+			eventsList = new ArrayList<>(eventsList);
+			return new RoomDTO(title, roomkey, owner, type, eventsList);
+		} return null;
+	}
+	
+	public static boolean isJsonRoom(JSONObject obj) {
+		if(!obj.containsKey("ROOMKEY")) return false;
+		if(!obj.containsKey("OWNER")) return false;
+		if(!obj.containsKey("EVENTKEYS")) return false;
+		if(!obj.containsKey("TYPE")) return false;
+		if(!obj.containsKey("TITLE")) return false;
+		return true;
+		
 	}
 	
 	public static JSONObject getUserJSON(String username) {
@@ -43,6 +100,15 @@ public class JSONHelper {
 			put("USERNAME", App.getCurrentUsername());
 			put("SESSIONKEY", App.sessionKey);
 			put("ROOMKEY", roomKey);
+		}};
+	}
+	
+	public static JSONObject getEventJSON(String eventkey) {
+		return new JSONObject() {{
+			put("TASK", "getevent");
+			put("USERNAME", App.getCurrentUsername());
+			put("SESSIONKEY", App.sessionKey);
+			put("EVENTKEY", eventkey);
 		}};
 	}
 	
@@ -161,7 +227,7 @@ public class JSONHelper {
 		}};
 	}
 	
-	public static String[] getRoomStringArrayFromJsonRoomString(String s) {
+	public static String[] getStringArrayFromJsonListString(String s) {
 		String str;
 		str = s.replace("[", "");
 		str = str.replace("]", "");

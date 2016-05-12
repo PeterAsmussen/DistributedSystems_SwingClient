@@ -138,7 +138,7 @@ public class UserDTO implements Serializable {
 		UserDTO user;
 		if(isJsonUser(obj)) {
 			String subbed = obj.get("SUBBEDROOMS").toString();
-			List<String> subbedList = Arrays.asList(JSONHelper.getRoomStringArrayFromJsonRoomString(subbed));
+			List<String> subbedList = Arrays.asList(JSONHelper.getStringArrayFromJsonListString(subbed));
 			String username = obj.get("USERNAME").toString();
 			String email = obj.get("EMAIL").toString();
 			String firstname = obj.get("FIRSTNAME").toString();

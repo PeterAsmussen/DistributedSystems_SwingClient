@@ -25,6 +25,7 @@ public class UserController {
 	
 	public UserDTO login(String username, String password) throws IOException {
 		UserDTO user;
+		@SuppressWarnings("unchecked")
 		JSONObject object = new JSONObject() {{
 			put("TASK", "loginauth");
 			put("USERNAME", username);
