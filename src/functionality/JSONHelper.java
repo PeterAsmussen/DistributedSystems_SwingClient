@@ -1,5 +1,7 @@
 package functionality;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -11,9 +13,18 @@ import model.UserDTO;
 public class JSONHelper {
 	
 	public static UserDTO jsonToUserDTO(JSONObject obj) {
-		return new UserDTO(obj.get("USERNAME").toString(), obj.get("EMAIL").toString(),
-				obj.get("FIRSTNAME").toString(), obj.get("LASTNAME").toString(),
-				obj.get("PASSWORD").toString(), (List<String>) obj.get("SUBBEDROOMS"));
+		String username = obj.get("USERNAME").toString().trim();
+		String email = obj.get("EMAIL").toString().trim();
+		String firstname = obj.get("FIRSTNAME").toString().trim();
+		String lastname = obj.get("LASTNAME").toString().trim();
+		String password = obj.get("PASSWORD").toString().trim();
+		String subbed =  obj.get("SUBBEDROOMS").toString();
+		List<String> subbedList = Arrays.asList(getRoomStringArrayFromJsonRoomString(subbed));
+		for(String s : subbedList) {
+			System.out.println("Her er s: "+s);
+		}
+		subbedList = new ArrayList<>(subbedList);
+		return new UserDTO(username, email, firstname, lastname, password, subbedList);
 		// Kan man bare caste subbedrooms til en List?
 	}
 	
@@ -148,6 +159,17 @@ public class JSONHelper {
 			put("TITLE", title);
 			put("OWNER", owner);
 		}};
+	}
+	
+	public static String[] getRoomStringArrayFromJsonRoomString(String s) {
+		String str;
+		str = s.replace("[", "");
+		str = str.replace("]", "");
+		str = str.replace("\"", "");
+		str = str.replace("\\", "");
+		str = str.replaceAll("_", "");
+		System.out.println("str: "+str);
+		return str.split(",");
 	}
 	
 }

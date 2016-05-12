@@ -8,15 +8,15 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
-import org.json.JSONArray;
+import functionality.JSONHelper;
 
 public class UserDTO implements Serializable {
 	
-	private String username = " ";
-	private String email = " ";
-	private String firstname = " ";
-	private String lastname = " ";
-	private String password = " ";
+	private String username = "";
+	private String email = "";
+	private String firstname = "";
+	private String lastname = "";
+	private String password = "";
 	
 	private List<String> subscribedRooms = new ArrayList<>();
 	
@@ -138,7 +138,7 @@ public class UserDTO implements Serializable {
 		UserDTO user;
 		if(isJsonUser(obj)) {
 			String subbed = obj.get("SUBBEDROOMS").toString();
-			List<String> subbedList = Arrays.asList(getRoomStringArrayFromJsonRoomString(subbed));
+			List<String> subbedList = Arrays.asList(JSONHelper.getRoomStringArrayFromJsonRoomString(subbed));
 			String username = obj.get("USERNAME").toString();
 			String email = obj.get("EMAIL").toString();
 			String firstname = obj.get("FIRSTNAME").toString();
@@ -161,12 +161,5 @@ public class UserDTO implements Serializable {
 		return true;
 	}
 	
-	private static String[] getRoomStringArrayFromJsonRoomString(String s) {
-		String str;
-		str = s.replace('[', '_');
-		str = str.replace(']', '_');
-		str = str.replace('"', '_');
-		str.replace("_", "");
-		return str.split(",");
-	}
+	
 }

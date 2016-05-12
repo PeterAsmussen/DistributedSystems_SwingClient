@@ -3,10 +3,9 @@ package functionality.controllers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.net.ProtocolException;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -38,7 +37,7 @@ public class UserController {
 		try {
 			reply = (JSONObject) parser.parse(in.readLine());
 			if(App.isReplySuccessful(reply)) {
-				System.out.println("----->"+reply.toString());
+				//System.out.println("----->"+reply.toString());
 				App.sessionKey = reply.get("SESSIONKEY").toString();
 				// f� user ud fra navn
 				JSONObject obj = JSONHelper.getUserJSON(username);
@@ -46,11 +45,11 @@ public class UserController {
 				in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 				reply = (JSONObject) parser.parse(in.readLine());
 				reply = (JSONObject) parser.parse(reply.get("USER").toString());
-				System.out.println("###>"+reply.toString());
+				//System.out.println("###>"+reply.toString());
 				
 				user = JSONHelper.jsonToUserDTO(reply);
 				App.currentUser = user;
-				System.out.println("Aaa"+ App.getCurrentUsername());
+				//System.out.println("Aaa"+ App.getCurrentUsername());
 				return user;
 			} System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		} catch (ParseException e) {
@@ -62,6 +61,29 @@ public class UserController {
 	
 	public void logout() {
 		App.currentUser = null;
+	}
+	
+	public void updateUser(UserDTO u) throws IOException {
+		JSONObject obj = JSONHelper.getUpdateUserJSON(u);
+		obj.put("SESSIONKEY", App.sessionKey);
+		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
+		
+		con.setDoOutput(true);
+		con.setRequestMethod("PUT");
+		OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
+		out.write(obj.toString());
+		out.close();
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		
+		String response;
+		response = in.readLine();
+		con.disconnect();
+		
+		//System.out.println("updateUser response: " + response);
+		
+	
+		in.close();
+		con.disconnect();
 	}
 
 }
