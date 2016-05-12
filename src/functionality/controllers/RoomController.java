@@ -26,6 +26,7 @@ public class RoomController {
 	}
 	
 	public boolean createRoom(String roomTitle, String type) throws IOException, ParseException {
+		
 		JSONObject obj = JSONHelper.getCreateRoomJSON(roomTitle, type);
 		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
 		
@@ -38,6 +39,7 @@ public class RoomController {
         
         String response;
         response = in.readLine();
+      
         con.disconnect();
         
         System.out.println("-------------------------------");
@@ -53,17 +55,14 @@ public class RoomController {
         
         JSONObject obj2 = JSONHelper.getUpdateUserJSON(App.currentUser);
         HttpURLConnection con2 = App.getHttpConnectionFromObject(obj2);
-        BufferedReader in2 = new BufferedReader(new InputStreamReader(con2.getInputStream()));
         con2.setDoOutput(true);
         con2.setRequestMethod("PUT");
-        
         OutputStreamWriter out2 = new OutputStreamWriter(con2.getOutputStream());
         out2.write(obj2.toString());
-        
+        out2.close();
+        BufferedReader in2 = new BufferedReader(new InputStreamReader(con2.getInputStream()));
         String response2 = in2.readLine();
         System.out.println("--------------->>>>"+response2);
-        
-        out2.close();
         con2.disconnect();
 
         return true;
