@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import model.AnswerDTO;
 import model.App;
 import model.EventDTO;
 import model.RoomDTO;
@@ -85,6 +86,24 @@ public class JSONHelper {
 		
 	}
 	
+	public static AnswerDTO jsonToAnswerDTO(JSONObject obj) {
+		if(isJsonAnswer(obj)) {
+			String answerkey = obj.get("ANSWERKEY").toString();
+			String body = obj.get("BODY").toString();
+			String timestamp = obj.get("TIMESTMAP").toString();
+			String sender = obj.get("SENDER").toString();
+			return new AnswerDTO(answerkey, body, timestamp, sender);
+		} return null;
+	}
+	
+	public static boolean isJsonAnswer(JSONObject obj) {
+		if(!obj.containsKey("ANSWERKEY")) return false;
+		if(!obj.containsKey("BODY")) return false;
+		if(!obj.containsKey("TIMESTAMP")) return false;
+		if(!obj.containsKey("SENDEr")) return false;
+		return true;
+	}
+	
 	public static JSONObject getUserJSON(String username) {
 		return new JSONObject() {{
 			put("TASK", "getuser");
@@ -103,12 +122,27 @@ public class JSONHelper {
 		}};
 	}
 	
+	public static JSONObject getQuestionJSON(String questionkey) {
+		return new JSONObject() {{
+			
+		}};
+	}
+	
 	public static JSONObject getEventJSON(String eventkey) {
 		return new JSONObject() {{
 			put("TASK", "getevent");
 			put("USERNAME", App.getCurrentUsername());
 			put("SESSIONKEY", App.sessionKey);
 			put("EVENTKEY", eventkey);
+		}};
+	}
+	
+	public static JSONObject getAnswerJSON(String answerkey) {
+		return new JSONObject() {{
+			put("TASK", "getanswer");
+			put("USERNAME", App.getCurrentUsername());
+			put("SESSIONKEY", App.sessionKey);
+			put("ANSWERKEY", answerkey);
 		}};
 	}
 	

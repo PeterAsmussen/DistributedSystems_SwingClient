@@ -10,7 +10,7 @@ import model.EventDTO;
 
 public interface IAnswerController {
 	
-	EventDTO getAnswer(String answerkey) throws IOException, ParseException;
+	AnswerDTO getAnswer(String answerkey) throws IOException, ParseException;
 	List<String> getAnswerKeyList(String questionkey) throws IOException, ParseException;
 	List<String> getAnswerTitleList(String questionkey) throws IOException, ParseException;
 	
