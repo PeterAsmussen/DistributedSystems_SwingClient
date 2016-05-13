@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -18,10 +19,11 @@ import model.App;
 public class HomeScreenView extends JPanel implements ActionListener{
 
 	public JPanel homeScreenPanel;
-	private JList roomList;
+	public JList list;
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
-	public JButton btnExit, btnCreateRoom, btnUpdate;
+	public JButton btnLogout, btnCreateRoom, btnEnterroom;
+	public static String selectedvalue;
 //	RetrieveData retrievedata = new RetrieveData();
 	RoomController roomcontroller = new RoomController();
 	LoginScreenView loginscreen = new LoginScreenView();
@@ -51,54 +53,47 @@ public class HomeScreenView extends JPanel implements ActionListener{
 		/*
 		 * Knapper oprettes
 		 */
-		btnExit = new JButton();
-		btnExit.setText("Exit");
-		btnExit.addActionListener(this);
+		btnLogout = new JButton();
+		btnLogout.setText("Log out");
+		btnLogout.addActionListener(this);
 		
 		btnCreateRoom = new JButton();
 		btnCreateRoom.setText("Create room");
 		btnCreateRoom.addActionListener(this);
 	
-		btnUpdate = new JButton();
-		btnUpdate.setText("Update");
-		btnUpdate.addActionListener(this);
-		
-		/*
-		 * nedenstående skal have et array af en art, som argument, for at kunne vise rum for 
-		 * den tilsvarende bruger
-		 */
-		
+		btnEnterroom = new JButton();
+		btnEnterroom.setText("Enter room");
+		btnEnterroom.addActionListener(this);
 		
 		DefaultListModel<String> list2 = new DefaultListModel<String>();
 		try {
-			System.out.println("2222"+App.getCurrentUsername());
 			for(String u : roomcontroller.getUserRoomTitleList(App.getCurrentUsername())){
-				list2.addElement(u);
-				
+				list2.addElement(u);		
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		JList list = new JList(list2);
+	
 		
-		
+		list = new JList(list2);
 		JScrollPane listScrollPane = new JScrollPane(list);
 		listScrollPane.setVisible(true);
 		homeScreenPanel.add(listScrollPane);
 		homeScreenPanel.add(btnPanel);
 		btnPanel.add(btnCreateRoom);
-		btnPanel.add(btnUpdate);
-		btnPanel.add(btnExit);
+		btnPanel.add(btnEnterroom);
+		btnPanel.add(btnLogout);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		
-		if(cmd.equals("Exit")){
-			System.out.println("Exit-button was pressed, shutting down...");
+		if(cmd.equals("Log out")){
+			System.out.println("Logging out...");
 			homeScreenPanel.setVisible(false);
-			System.exit(0);
+			loginscreen = new LoginScreenView();
+			MainWindow.frame.getContentPane().add(loginscreen.loginPanel);
 		}
 		
 		if(cmd.equals("Create room")){
@@ -109,8 +104,12 @@ public class HomeScreenView extends JPanel implements ActionListener{
 			createroom.setVisible(true);	
 		}
 		
-		if(cmd.equals("Update")){
-//			retrievedata.getRooms();
+		if(cmd.equals("Enter room")){
+			System.out.println("Enter room was pressed, proceeding...");
+			SelectedRoom selectedroom = new SelectedRoom();
+			SelectedRoom.SelectedRoom();
+			selectedvalue = list.getSelectedValue().toString();
+			
 		}
 	}
 }
