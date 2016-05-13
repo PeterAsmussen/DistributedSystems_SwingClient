@@ -9,24 +9,27 @@ import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import functionality.controllers.RoomController;
 import model.App;
+import model.EventDTO;
 import model.RoomDTO;
 
 public class HomeScreenView extends JPanel implements ActionListener{
 
 	public JPanel homeScreenPanel;
-	public JList list;
+	public JList titleList;
 	private JPanel listPanel;
 	private JScrollPane scrollPanel;
 	public JButton btnLogout, btnCreateRoom, btnEnterroom;
 	public static String selectedvalue;
+	DefaultListModel<String> list2;
+	DefaultListModel<RoomDTO> list3;
 //	RetrieveData retrievedata = new RetrieveData();
 	RoomController roomcontroller = new RoomController();
+	EventDTO eventDTO;
 	LoginScreenView loginscreen = new LoginScreenView();
 	
 	/**
@@ -66,21 +69,20 @@ public class HomeScreenView extends JPanel implements ActionListener{
 		btnEnterroom.setText("Enter room");
 		btnEnterroom.addActionListener(this);
 		
-		DefaultListModel<String> list2 = new DefaultListModel<String>();
+		list2 = new DefaultListModel<String>();
+		list3 = new DefaultListModel<RoomDTO>();
+		
 		try {
-
-			System.out.println("2222"+App.getCurrentUsername());
 			for(RoomDTO u : roomcontroller.getRoomDTOList(App.getCurrentUsername())){
 				list2.addElement(u.getTitle());
-				
+				list3.addElement(u);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	
-		
-		list = new JList(list2);
-		JScrollPane listScrollPane = new JScrollPane(list);
+		titleList = new JList(list2);
+		JScrollPane listScrollPane = new JScrollPane(titleList);
 		listScrollPane.setVisible(true);
 		homeScreenPanel.add(listScrollPane);
 		homeScreenPanel.add(btnPanel);
@@ -109,11 +111,18 @@ public class HomeScreenView extends JPanel implements ActionListener{
 		}
 		
 		if(cmd.equals("Enter room")){
-			System.out.println("Enter room was pressed, proceeding...");
-			SelectedRoom selectedroom = new SelectedRoom();
-			SelectedRoom.SelectedRoom();
-			selectedvalue = list.getSelectedValue().toString();
 			
+			selectedvalue = titleList.getSelectedValue().toString();
+			for(int i = 0; i < list3.getSize(); i++){
+				if(list3.get(i).getTitle().equals(selectedvalue)){
+					App.currentRoom = list3.get(i);
+				}
+			}
+			System.out.println("Enter room was pressed, proceeding...");
+			SelectedRoomView selectedroomview = new SelectedRoomView();
+			SelectedRoomView.SelectedRoom();
+			
+
 		}
 	}
 }

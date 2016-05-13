@@ -19,11 +19,11 @@ import org.json.simple.parser.ParseException;
 import functionality.controllers.EventController;
 import functionality.controllers.RoomController;
 import model.App;
+import model.EventDTO;
 import model.RoomDTO;
 
-public class SelectedRoom implements ActionListener {
+public class SelectedRoomView implements ActionListener {
 
-	public static JPanel selectedroomPanel;
 	private JList eventList;
 	private JScrollPane scrollpanel;
 	public JButton btnEnterEvent, btnCreateEvent;
@@ -31,6 +31,7 @@ public class SelectedRoom implements ActionListener {
 	EventController eventcontroller = new EventController();
 	HomeScreenView homescreenview = new HomeScreenView();
 	RoomDTO roomdto;
+	public static JPanel selectedroomPanel;
 	private static JFrame frame;
 
 	/**
@@ -41,7 +42,7 @@ public class SelectedRoom implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {		
 			public void run() {		
 				try {		
-					SelectedRoom window = new SelectedRoom();	
+					SelectedRoomView window = new SelectedRoomView();	
 					window.frame.setVisible(true);		
 					frame.getContentPane().add(selectedroomPanel);
 				} catch (Exception e) {		
@@ -51,7 +52,7 @@ public class SelectedRoom implements ActionListener {
 		});		
 	}
 
-	public SelectedRoom() {
+	public SelectedRoomView() {
 		initialize();
 	}
 
@@ -76,8 +77,8 @@ public class SelectedRoom implements ActionListener {
 
 		DefaultListModel<String> list2 = new DefaultListModel<String>();
 		try {
-			for(String u : eventcontroller.getEventTitleList(App.currentRoom.getRoomKey())){
-				list2.addElement(u);		
+			for(EventDTO u : eventcontroller.getEventDTOList(App.currentRoom.getRoomKey())){
+				list2.addElement(u.getTitle());		
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
