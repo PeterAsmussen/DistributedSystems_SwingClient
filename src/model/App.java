@@ -38,7 +38,6 @@ public class App {
 		return null;
 	}
 	
-	
 	/**
 	 * returnerer en forbindelse til HTSservlet med det givne request object 
 	 * @param obj

@@ -30,9 +30,6 @@ public class LoginScreenView extends JPanel implements ActionListener {
 	public static String username;
 	public String password;
 
-//	VerifyLogin verify = new VerifyLogin();
-//	LoginFunc connection = new LoginFunc();
-
 	public LoginScreenView() {
 		initialize();
 	}
