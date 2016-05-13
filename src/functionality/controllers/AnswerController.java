@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,7 +87,7 @@ public class AnswerController implements IAnswerController {
 	}
 
 	@Override
-	public void createAnswer(AnswerDTO a) throws IOException, ParseException {
+	public boolean createAnswer(AnswerDTO a) throws IOException, ParseException {
 		JSONObject obj = JSONHelper.getCreateAnswerJSON(a.getBody(), a.getTimeStamp());
 		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
 		con.setDoOutput(true);
@@ -100,20 +101,36 @@ public class AnswerController implements IAnswerController {
 		con.disconnect();
 		
 		JSONObject reply = (JSONObject) parser.parse(response);
-		reply = (JSONObject) reply.get("ANSWER");
-		String answerkey = reply.get("ANSWERKEY").toString();
-		
-		App.currentQuestion.addAnswerKey(answerkey);
-		
-		QuestionController qc = new QuestionController();
-		qc.updateQuestion(App.currentQuestion);
+		if (reply.get("REPLY").equals("succes")) {
+			reply = (JSONObject) reply.get("ANSWER");
+			String answerkey = reply.get("ANSWERKEY").toString();
+			App.currentQuestion.addAnswerKey(answerkey);
+			QuestionController qc = new QuestionController();
+			qc.updateQuestion(App.currentQuestion);
+			return true;
+		}
+		return false;
 		
 	}
 
 	@Override
-	public void updateAnswer(AnswerDTO a) {
-		// TODO Auto-generated method stub
+	public boolean updateAnswer(AnswerDTO a) throws IOException, ParseException {
+		JSONObject obj = JSONHelper.getUpdateAnswerJSON(a.getAnswerKey(), a.getBody(), a.getTimeStamp(), a.getSender());
+		obj.put("SESSIONKEY", App.sessionKey);
+		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
+		con.setDoOutput(true);
+		con.setRequestMethod("PUT");
 		
+		OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
+		out.write(obj.toString());
+		out.close();
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		JSONObject reply = (JSONObject) parser.parse(in.readLine());
+		
+		if(reply.get("REPLY").equals("succes")) {
+			return true;
+		} return false;
 	}
 
 }

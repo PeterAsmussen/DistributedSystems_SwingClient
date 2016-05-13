@@ -14,12 +14,18 @@ public class EventDTO implements Serializable {
 	String creator;
 	List<String> questionkeys = new ArrayList<>();
 	
+	public void addQuestionKey(String questionkey) {
+		questionkeys.add(questionkey);
+	}
+	
 /**
  * Initial creation constructor
  * @param title
  * @param timeStamp
  * @param eventKey
  */
+	
+	
 	public EventDTO(String title, String timeStamp, String eventKey, String creator) {
 		super();
 		this.title = title;

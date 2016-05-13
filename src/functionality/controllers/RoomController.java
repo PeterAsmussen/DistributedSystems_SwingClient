@@ -44,10 +44,6 @@ public class RoomController implements IRoomController {
       
         con.disconnect();
         
-        System.out.println("-------------------------------");
-        System.out.println("Create room: "+response);
-        System.out.println("-------------------------------");
-        
         JSONObject reply = (JSONObject) parser.parse(response); 
         reply = (JSONObject) reply.get("ROOM");
         System.out.println("reply i createRoom: "+reply);
