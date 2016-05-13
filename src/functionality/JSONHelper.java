@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import model.AnswerDTO;
 import model.App;
 import model.EventDTO;
+import model.QuestionDTO;
 import model.RoomDTO;
 import model.UserDTO;
 
@@ -100,8 +101,32 @@ public class JSONHelper {
 		if(!obj.containsKey("ANSWERKEY")) return false;
 		if(!obj.containsKey("BODY")) return false;
 		if(!obj.containsKey("TIMESTAMP")) return false;
-		if(!obj.containsKey("SENDEr")) return false;
+		if(!obj.containsKey("SENDER")) return false;
 		return true;
+	}
+	
+	public static QuestionDTO jsonToQuestionDTO(JSONObject obj) {
+		if(isJsonQuestion(obj)) {
+			String title = obj.get("TITLE").toString();
+			String body = obj.get("BODY").toString();
+			String timeStamp = obj.get("TIMESTAMP").toString();
+			String questionkey = obj.get("QUESTIONKEY").toString();
+			String sender = obj.get("SENDER").toString();
+			String answers = obj.get("ANSWERKEYS").toString();
+			List<String> list = Arrays.asList(getStringArrayFromJsonListString(answers));
+			list = new ArrayList<>(list);
+			return new QuestionDTO(title, body, timeStamp, questionkey, sender, list);
+		} return null;
+	}
+	
+	public static boolean isJsonQuestion(JSONObject obj) {
+		if(!obj.containsKey("QUESTIONKEY")) return false;
+		if(!obj.containsKey("TITLE")) return false;
+		if(!obj.containsKey("BODY")) return false;
+		if(!obj.containsKey("SENDER")) return false;
+		if(!obj.containsKey("TIMESTAMP")) return false;
+		if(!obj.containsKey("ANSWERKEYS")) return false;
+ 		return true;
 	}
 	
 	public static JSONObject getUserJSON(String username) {
@@ -251,11 +276,11 @@ public class JSONHelper {
 		}};
 	}
 	
-	public static JSONObject getUpdateRoomJSON(String eventkeys, String roomkeys, String title, String owner) {
+	public static JSONObject getUpdateRoomJSON(List<String> eventkeys, String roomkey, String title, String owner) {
 		return new JSONObject(){{
 			put("TASK", "UPDATEROOM");
 			put("EVENTKEYS", eventkeys);
-			put("ROOMKEYS", roomkeys);
+			put("ROOMKEYS", roomkey);
 			put("TITLE", title);
 			put("OWNER", owner);
 		}};

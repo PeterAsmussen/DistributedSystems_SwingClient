@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -99,16 +100,14 @@ public class RoomController implements IRoomController {
 		return null;	
 	}
 	
-	public List<String> getUserRoomTitleList(String username) throws IOException {
+	public List<RoomDTO> getRoomDTOList(String username) throws IOException {
 		List<String> keyList = getUserRoomKeyList(username);
 		//System.out.println("getUserRoomTitleList keyList:"+keyList.toString());
-		List<String> nameList = new ArrayList<>();
+		List<RoomDTO> nameList = new ArrayList<>();
 		BufferedReader in;
 		String response;
 		for(String s : keyList) {
-			//System.out.println("string:"+ s);
 			JSONObject obj = JSONHelper.getRoomJSON(s);
-			//System.out.println("object: "+obj.toString());
 			HttpURLConnection c = App.getHttpConnectionFromObject(obj);
 			in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 			response = in.readLine();
@@ -121,9 +120,8 @@ public class RoomController implements IRoomController {
 				e.printStackTrace();
 			}
 			if(reply.get("REPLY").equals("succes")){
-				reply = (JSONObject) reply.get("ROOM");
-				String title = reply.get("TITLE").toString();
-				nameList.add(title);
+				reply = (JSONObject) reply.get("ROOM");	
+				nameList.add(JSONHelper.jsonToRoomDTO(reply));
 			} else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		}
 		//in.close();
@@ -146,6 +144,27 @@ public class RoomController implements IRoomController {
 		}
 		
 		return room;
+	}
+
+	@Override
+	public boolean updateRoom(RoomDTO r) throws IOException, ParseException {
+		JSONObject obj = JSONHelper.getUpdateRoomJSON(r.getEventKeys(), r.getRoomKey(), r.getTitle(), r.getOwner());
+		obj.put("SESSIONKEY", App.sessionKey);
+		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
+		con.setDoOutput(true);
+		con.setRequestMethod("PUT");
+		
+		OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
+		out.write(obj.toString());
+		out.close();
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		JSONObject reply = (JSONObject) parser.parse(in.readLine());
+		
+		if(reply.get("REPLY").equals("succes")) {
+			return true;
+		} return false;
+		
 	}
 	
 	

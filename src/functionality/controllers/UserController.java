@@ -64,7 +64,7 @@ public class UserController {
 		App.currentUser = null;
 	}
 	
-	public void updateUser(UserDTO u) throws IOException {
+	public boolean updateUser(UserDTO u) throws IOException, ParseException {
 		JSONObject obj = JSONHelper.getUpdateUserJSON(u);
 		obj.put("SESSIONKEY", App.sessionKey);
 		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
@@ -79,12 +79,14 @@ public class UserController {
 		String response;
 		response = in.readLine();
 		con.disconnect();
-		
-		//System.out.println("updateUser response: " + response);
-		
-	
 		in.close();
-		con.disconnect();
+		
+		JSONObject reply = (JSONObject) parser.parse(response);
+		
+		if(reply.get("REPLY").equals("succes")) {
+			return true;
+		} return false;
+		
 	}
 
 }

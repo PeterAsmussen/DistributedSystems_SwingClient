@@ -38,7 +38,7 @@ public class EventController implements IEventController{
 			reply = (JSONObject) reply.get("EVENT");
 			event = JSONHelper.jsonToEventDTO(reply);
 			return event;
-		}
+		} else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		return null;
 	}
 	
@@ -56,13 +56,13 @@ public class EventController implements IEventController{
 			String events = reply.get("EVENTKEYS").toString();
 			list = new ArrayList<>(Arrays.asList(JSONHelper.getStringArrayFromJsonListString(events)));
 			return list;
-		}
+		}else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		return null;
 	}
 	
-	public List<String> getEventTitleList(String roomkey) throws IOException, ParseException {
+	public List<EventDTO> getEventDTOList(String roomkey) throws IOException, ParseException {
 		List<String> keyList = getEventKeyList(roomkey);
-		List<String> nameList = new ArrayList<>();
+		List<EventDTO> eventList = new ArrayList<>();
 		BufferedReader in;
 		String response;
 		for(String s : keyList) {
@@ -75,12 +75,22 @@ public class EventController implements IEventController{
 			JSONObject reply = (JSONObject) parser.parse(response);
 			if(reply.get("REPLY").equals("succes")) {
 				reply = (JSONObject) reply.get("EVENT");
-				String title = reply.get("TITLE").toString();
-				nameList.add(title);
-				return nameList;
-			}
+				eventList.add(JSONHelper.jsonToEventDTO(reply));
+			}else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		}
-		return null;
+		return eventList;
+	}
+
+	@Override
+	public void createEvent(EventDTO e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateEvent(EventDTO e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

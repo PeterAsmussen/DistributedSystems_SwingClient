@@ -12,6 +12,8 @@ public interface IAnswerController {
 	
 	AnswerDTO getAnswer(String answerkey) throws IOException, ParseException;
 	List<String> getAnswerKeyList(String questionkey) throws IOException, ParseException;
-	List<String> getAnswerTitleList(String questionkey) throws IOException, ParseException;
+	List<AnswerDTO> getAnswerDTOList(String questionkey) throws IOException, ParseException;
+	void createAnswer(AnswerDTO a) throws IOException, ParseException;
+	void updateAnswer(AnswerDTO a);
 	
 }

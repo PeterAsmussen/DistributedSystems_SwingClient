@@ -72,7 +72,7 @@ public class HomeScreenView extends JPanel implements ActionListener{
 		DefaultListModel<String> list2 = new DefaultListModel<String>();
 		try {
 			System.out.println("2222"+App.getCurrentUsername());
-			for(String u : roomcontroller.getUserRoomTitleList(App.getCurrentUsername())){
+			for(String u : roomcontroller.getRoomDTOList(App.getCurrentUsername())){
 				list2.addElement(u);
 				
 			}

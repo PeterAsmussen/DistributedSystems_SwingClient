@@ -52,6 +52,10 @@ public class QuestionDTO implements Serializable {
 		this.questionKey = questionKey;
 		this.sender = sender;
 	}
+	
+	public void addAnswerKey(String answerkey) {
+		answerKeys.add(answerkey);
+	}
 
 	public String getTitle() {
 		return title;
