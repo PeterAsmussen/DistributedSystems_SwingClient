@@ -256,7 +256,7 @@ public class JSONHelper {
 		}};
 	}
 	
-	public static JSONObject getUpdateEventJSON(String questionkeys, String timestamp, String eventkey, String creator) {
+	public static JSONObject getUpdateEventJSON(List<String> questionkeys, String timestamp, String eventkey, String creator) {
 		return new JSONObject(){{
 			put("TASK", "UPDATEEVENT");
 			put("QUESTIONKEYS", questionkeys);
