@@ -55,9 +55,9 @@ public class CreateRoomView extends JPanel implements ActionListener {
 	
 		JLabel lblCreateRoom = DefaultComponentFactory.getInstance().createTitle("Create new room");
 		
-		btnExit = new JButton();
-		btnExit.setText("Exit");
-		btnExit.addActionListener(this);
+		btnBack = new JButton();
+		btnBack.setText("Back");
+		btnBack.addActionListener(this);
 		
 		btnDone = new JButton();
 		btnDone.setText("Done");
@@ -78,7 +78,7 @@ public class CreateRoomView extends JPanel implements ActionListener {
 		infoPanel.add(txtTopicQuestion);
 		createroomPanel.add(btnPanel);
 		btnPanel.add(btnDone);
-		btnPanel.add(btnExit);
+		btnPanel.add(btnBack);
 	
 	}
 
@@ -86,10 +86,10 @@ public class CreateRoomView extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		
-		if(cmd.equals("Exit")){
-			System.out.println("Exit-button was pressed, shutting down...");
+		if(cmd.equals("Back")){
+			homescreen = new HomeScreenView();
+			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 			createroomPanel.setVisible(false);
-			System.exit(0);
 		}
 		if(cmd.equals("Done")){
 			
@@ -103,7 +103,6 @@ public class CreateRoomView extends JPanel implements ActionListener {
 
 			homescreen = new HomeScreenView();
 			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
-			
 			createroomPanel.setVisible(false);
 
 		}

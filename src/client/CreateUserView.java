@@ -4,6 +4,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,10 +12,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.json.simple.parser.ParseException;
+
+import functionality.controllers.UserController;
+
 
 public class CreateUserView extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
+	UserController uc;
+	LoginScreenView loginscreen;
 	public JPanel createUserPanel;
 	private JButton btnCreate, btnExit, btnBack;
 	private JTextField username, password, repeatPassword, email, firstname, lastname;
@@ -25,6 +32,7 @@ public class CreateUserView extends JPanel implements ActionListener {
 	}
 
 	private void initialize(){
+		uc = new UserController();
 		createUserPanel = new JPanel();
 		createUserPanel.setLayout(new GridLayout(2, 1));
 		JPanel infoPanel = new JPanel();
@@ -111,15 +119,18 @@ public class CreateUserView extends JPanel implements ActionListener {
 			getFirstname = firstname.getText().toString();
 			getLastname = lastname.getText().toString();
 			
-			System.out.println(getUsername);
-			System.out.println(getPassword);
-			System.out.println(getPassword2);
-			System.out.println(getEmail);
-			System.out.println(getFirstname);
-			System.out.println(getLastname);
+			try {
+				uc.createUser(getUsername, getPassword, getPassword2, getEmail, getFirstname, getLastname);
+			} catch (IOException e1) {
+				System.out.println(e1);
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
 			
-			JOptionPane.showMessageDialog(createUserPanel, "User successfully created");
-			
+			loginscreen = new LoginScreenView();
+			MainWindow.frame.getContentPane().add(loginscreen.loginPanel);
+			createUserPanel.setVisible(false);			
 		}
 		
 	}

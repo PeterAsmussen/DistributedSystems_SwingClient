@@ -16,13 +16,13 @@ import model.App;
 import model.UserDTO;
 
 public class UserController {
-	
+
 	JSONParser parser;
-	
+
 	public UserController() {
 		parser = new JSONParser();
 	}
-	
+
 	public UserDTO login(String username, String password) throws IOException {
 		UserDTO user;
 		@SuppressWarnings("unchecked")
@@ -31,7 +31,7 @@ public class UserController {
 			put("USERNAME", username);
 			put("PASSWORD", password);
 		}}; 
-		
+
 		HttpURLConnection c = App.getHttpConnectionFromObject(object);
 		BufferedReader in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 		JSONObject reply = new JSONObject();
@@ -54,7 +54,36 @@ public class UserController {
 		}
 		return null;
 	}
-	
+
+	public UserDTO createUser(String username, String passone, String passtwo,
+			String email, String firstname, String lastname) throws IOException, ParseException{
+		UserDTO user;
+		JSONObject object = new JSONObject(){{
+			put("TASK", "CREATEUSER");
+			put("USERNAME", username);
+			put("PASSONE", passone);
+			put("PASSTWO", passtwo);
+			put("EMAIL", email);
+			put("FIRSTNAME", firstname);
+			put("LASTNAME", lastname);
+		}};
+		HttpURLConnection con = App.getHttpConnectionFromObject(object);
+		con.setDoOutput(true);
+		con.setRequestMethod("PUT");
+		OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
+		out.write(object.toString());
+		out.close();
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		String response;
+		response = in.readLine();
+		con.disconnect();
+		JSONObject reply = (JSONObject) parser.parse(response);
+		reply = (JSONObject) reply.get("USER");
+		user = JSONHelper.jsonToUserDTO(reply);
+		return user;
+	}
+
+
 	public UserDTO otherLogin(String username, String password) throws IOException {
 		UserDTO user;
 		@SuppressWarnings("unchecked")
@@ -88,35 +117,35 @@ public class UserController {
 		}
 		return null;
 	}
-	
-	
+
+
 	public void logout() {
 		App.currentUser = null;
 	}
-	
+
 	public boolean updateUser(UserDTO u) throws IOException, ParseException {
 		JSONObject obj = JSONHelper.getUpdateUserJSON(u);
 		obj.put("SESSIONKEY", App.sessionKey);
 		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
-		
+
 		con.setDoOutput(true);
 		con.setRequestMethod("PUT");
 		OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
 		out.write(obj.toString());
 		out.close();
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		
+
 		String response;
 		response = in.readLine();
 		con.disconnect();
 		in.close();
-		
+
 		JSONObject reply = (JSONObject) parser.parse(response);
-		
+
 		if(reply.get("REPLY").equals("succes")) {
 			return true;
 		} return false;
-		
+
 	}
 
 }
