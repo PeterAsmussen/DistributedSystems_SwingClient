@@ -20,6 +20,7 @@ import functionality.controllers.EventController;
 import functionality.controllers.RoomController;
 import model.App;
 import model.EventDTO;
+import model.QuestionDTO;
 import model.RoomDTO;
 
 public class SelectedRoomView implements ActionListener {
@@ -31,6 +32,10 @@ public class SelectedRoomView implements ActionListener {
 	EventController eventcontroller = new EventController();
 	HomeScreenView homescreenview = new HomeScreenView();
 	RoomDTO roomdto;
+	DefaultListModel<String> list2;
+	DefaultListModel<EventDTO> list3;
+	
+	public static String selectedvalue;
 	public static JPanel selectedroomPanel;
 	private static JFrame frame;
 
@@ -66,7 +71,6 @@ public class SelectedRoomView implements ActionListener {
 		frame.setTitle("Welcome to room: " + homescreenview.selectedvalue);
 
 		selectedroomPanel = new JPanel();
-		selectedroomPanel.setVisible(true);
 		selectedroomPanel.setLayout(new GridLayout(2,0));
 
 		JPanel btnPanel = new JPanel();
@@ -75,10 +79,12 @@ public class SelectedRoomView implements ActionListener {
 		scrollpanel.setVisible(true);
 		btnPanel.setLayout(new GridBagLayout());
 
-		DefaultListModel<String> list2 = new DefaultListModel<String>();
+		list2 = new DefaultListModel<String>();
+		list3 = new DefaultListModel<EventDTO>();
 		try {
 			for(EventDTO u : eventcontroller.getEventDTOList(App.currentRoom.getRoomKey())){
-				list2.addElement(u.getTitle());		
+				list2.addElement(u.getTitle());
+				list3.addElement(u);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -86,6 +92,7 @@ public class SelectedRoomView implements ActionListener {
 			e.printStackTrace();
 		}
 		
+
 		btnEnterEvent = new JButton("Enter event");
 		btnEnterEvent.addActionListener(this);
 		btnCreateEvent = new JButton("Create event");
@@ -98,6 +105,8 @@ public class SelectedRoomView implements ActionListener {
 
 		selectedroomPanel.add(scrollpanel);
 		selectedroomPanel.add(btnPanel);
+		scrollpanel.setVisible(true);
+		selectedroomPanel.setVisible(true);
 		
 		
 	}
@@ -106,10 +115,18 @@ public class SelectedRoomView implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		
-		if(cmd.equals("Enter Event")){
-			/*
-			 * do stuff
-			 */
+		if(cmd.equals("Enter event")){
+			selectedvalue = eventList.getSelectedValue().toString();
+			
+			for(int i = 0; i < list3.getSize(); i++){
+				if(list3.get(i).getTitle().equals(selectedvalue)){
+					App.currentEvent = list3.get(i);
+				}
+			}
+			
+			System.out.println(selectedvalue);
+			SelectedEventView.SelectedEvent();
+			 
 		}
 		
 		if(cmd.equals("Create event")){

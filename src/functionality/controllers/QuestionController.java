@@ -55,7 +55,7 @@ public class QuestionController implements IQuestionController {
 		in.close();
 		JSONObject reply = (JSONObject) parser.parse(response);
 		if(reply.get("REPLY").equals("succes")) {
-			reply = (JSONObject) reply.get("ROOM");
+			reply = (JSONObject) reply.get("EVENT");
 			String questions = reply.get("QUESTIONKEYS").toString();
 			list = new ArrayList<>(Arrays.asList(JSONHelper.getStringArrayFromJsonListString(questions)));
 			return list;
@@ -67,12 +67,11 @@ public class QuestionController implements IQuestionController {
 	public List<QuestionDTO> getQuestionDTOList(String eventkey) throws IOException, ParseException {
 		List<String> keyList = getQuestionKeyList(eventkey);
 		List<QuestionDTO> eventList = new ArrayList<>();
-		BufferedReader in;
 		String response;
 		for(String s : keyList) {
 			JSONObject obj = JSONHelper.getQuestionJSON(s);
 			HttpURLConnection con = App.getHttpConnectionFromObject(obj);
-			in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			response = in.readLine();
 			con.disconnect();
 			in.close();

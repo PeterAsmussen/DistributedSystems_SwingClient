@@ -216,6 +216,14 @@ public class JSONHelper {
 		}};
 	}
 	
+	public static JSONObject getOtherLoginJSON(UserDTO u){
+		return new JSONObject(){{
+			put("TASK", "otherlogin");
+			put("USERNAME", u.getUsername());
+			put("PASSWORD", u.getPassword());
+		}};
+	}
+	
 	public static JSONObject getCreateQuestionJSON(String body, String timestamp, String title){
 		return new JSONObject(){{
 			put("TASK", "CREATEQUESTION");

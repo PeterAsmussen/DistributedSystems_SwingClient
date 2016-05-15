@@ -119,9 +119,7 @@ public class HomeScreenView extends JPanel implements ActionListener{
 				}
 			}
 			System.out.println("Enter room was pressed, proceeding...");
-			SelectedRoomView selectedroomview = new SelectedRoomView();
 			SelectedRoomView.SelectedRoom();
-			
 
 		}
 	}

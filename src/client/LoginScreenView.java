@@ -18,7 +18,7 @@ import model.App;
 
 public class LoginScreenView extends JPanel implements ActionListener {
 
-	
+
 	/**
 	 * 
 	 */
@@ -26,7 +26,7 @@ public class LoginScreenView extends JPanel implements ActionListener {
 	public JPanel loginPanel;
 	public JTextField txtUsername;
 	public JPasswordField txtPassword;
-	private JButton btnLogIn, btnLoginAsGuest, btnCreateUser;
+	private JButton btnLogIn, btnJacobsServer, btnCreateUser;
 	public static String username;
 	public String password;
 
@@ -38,7 +38,7 @@ public class LoginScreenView extends JPanel implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		/*
 		 * LoginScreen-panelet oprettes, samt de oenksede under-paneler
 		 * som skal indeholder knapper/andre obejkter 
@@ -49,7 +49,7 @@ public class LoginScreenView extends JPanel implements ActionListener {
 		loginPanel.setLayout(new GridLayout(3,1));
 		btnPanel.setLayout(new GridBagLayout());
 		infoPanel.setLayout(new GridLayout(4,3));
-		
+
 		/*
 		 * Username og password-felter oprettes
 		 */
@@ -57,25 +57,25 @@ public class LoginScreenView extends JPanel implements ActionListener {
 		txtUsername.setColumns(20);
 		txtPassword = new JPasswordField();
 		txtPassword.setColumns(20);
-		
+
 		/*
 		 * Labels oprettes
 		 */
 		JLabel lblUsername = new JLabel("Username:	");
 		JLabel lblPassword = new JLabel("Password:	");
-		
+
 		/*
 		 * Knapper oprettes
 		 */
 		btnLogIn = new JButton("Log in");
-		btnLoginAsGuest = new JButton("Login as guest");
+		btnJacobsServer = new JButton("Jacobs server");
 		btnCreateUser = new JButton("Create user");
-	
+
 		txtPassword.setActionCommand("Log in");
 		btnLogIn.addActionListener(this);
-		btnLoginAsGuest.addActionListener(this);
+		btnJacobsServer.addActionListener(this);
 		btnCreateUser.addActionListener(this);
-		
+
 		/*
 		 * Objekter tilfoejes til LoginScreen-panelet
 		 */
@@ -86,18 +86,18 @@ public class LoginScreenView extends JPanel implements ActionListener {
 		infoPanel.add(txtPassword);
 		loginPanel.add(btnPanel);
 		btnPanel.add(btnLogIn);
-		btnPanel.add(btnLoginAsGuest);
 		btnPanel.add(btnCreateUser);
-	
+		btnPanel.add(btnJacobsServer);
+
 	}
-	
+
 	public void actionPerformed(ActionEvent e){
 		String cmd = e.getActionCommand();
-		
+
 		if(cmd.equals("Log in")){
 			username = txtUsername.getText();
 			String password = String.valueOf(txtPassword.getPassword());
-			
+
 			try {
 				if(App.getUserController().login(username, password) != null){
 					System.out.println(App.getCurrentUsername());
@@ -105,12 +105,12 @@ public class LoginScreenView extends JPanel implements ActionListener {
 					MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 					loginPanel.setVisible(false);
 					System.out.println("Log in was pressed");
-					
+
 				} else {
-					
+
 					JOptionPane.showMessageDialog(loginPanel, "Bad password, try again");
 					System.out.println("Incorrect password!");
-					
+
 				}
 			} catch (HeadlessException e1) {
 				e1.printStackTrace();
@@ -118,19 +118,37 @@ public class LoginScreenView extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
-		
-		if(cmd.equals("Login as guest")){
-//			
-//			int i = verify.randomInteger(1, 8);
-//			HomeScreenView homescreen = new HomeScreenView();
-//			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
-//			loginPanel.setVisible(false);
-//			System.out.println("Login as guest was pressed!");
-//			
-		}
-		
-		if(cmd.equals("Create user")){
+
+		if(cmd.equals("Jacobs server")){
+			username = txtUsername.getText();
+			String password = String.valueOf(txtPassword.getPassword());
+
+			System.out.println(username);
+			System.out.println(password);
 			
+			try{
+				if(App.getUserController().otherLogin(username, password) != null){
+					System.out.println(App.getCurrentUsername());
+					HomeScreenView homescreen = new HomeScreenView();
+					MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
+					loginPanel.setVisible(false);
+					System.out.println("Log in was pressed");
+
+				} else {
+
+					JOptionPane.showMessageDialog(loginPanel, "Bad password, try again");
+					System.out.println("Incorrect password!");
+				}
+			} catch (HeadlessException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+
+		if(cmd.equals("Create user")){
+
 			CreateUserView createuser = new CreateUserView();
 			MainWindow.frame.getContentPane().add(createuser.createUserPanel);
 			loginPanel.setVisible(false);
