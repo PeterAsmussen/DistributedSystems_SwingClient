@@ -27,7 +27,6 @@ public class HomeScreenView extends JPanel implements ActionListener{
 	public static String selectedvalue;
 	DefaultListModel<String> list2;
 	DefaultListModel<RoomDTO> list3;
-//	RetrieveData retrievedata = new RetrieveData();
 	RoomController roomcontroller = new RoomController();
 	EventDTO eventDTO;
 	LoginScreenView loginscreen = new LoginScreenView();

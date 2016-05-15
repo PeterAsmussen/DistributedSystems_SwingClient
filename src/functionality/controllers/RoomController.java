@@ -28,33 +28,26 @@ public class RoomController implements IRoomController {
 	}
 	
 	public boolean createRoom(String roomTitle, String type) throws IOException, ParseException {
-		
 		JSONObject obj = JSONHelper.getCreateRoomJSON(roomTitle, type);
 		HttpURLConnection con = App.getHttpConnectionFromObject(obj);
-		
         con.setDoOutput(true);
         con.setRequestMethod("PUT");
         OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
         out.write(obj.toString());
         out.close();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        
         String response;
         response = in.readLine();
-      
         con.disconnect();
-        
         JSONObject reply = (JSONObject) parser.parse(response); 
         reply = (JSONObject) reply.get("ROOM");
         System.out.println("reply i createRoom: "+reply);
         String roomkey = reply.get("ROOMKEY").toString();
         App.currentUser.addRoomKey(roomkey);
-        
         UserController uc = new UserController();
         try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         uc.updateUser(App.currentUser);
@@ -67,9 +60,7 @@ public class RoomController implements IRoomController {
 		List<String> list = new ArrayList<>();
 		JSONObject obj = JSONHelper.getUserJSON(username);
 		HttpURLConnection c = App.getHttpConnectionFromObject(obj);
-		//System.out.println("yo mama");
 		BufferedReader in = new BufferedReader(new InputStreamReader(c.getInputStream()));
-		//System.out.println("yo papa");
 		String response = in.readLine();
 		c.disconnect();
 		in.close();
@@ -79,26 +70,20 @@ public class RoomController implements IRoomController {
 		} catch (ParseException e) {
 			System.err.println("Der var et problem med at parse i RoomController");
 			e.printStackTrace();
-		}
-		
+		}		
 		if(reply.get("REPLY").equals("succes")) {
-			//System.out.println("this shit" +reply.toString());
 			reply = (JSONObject) reply.get("USER");
 			String sub = reply.get("SUBBEDROOMS").toString();
-			//System.out.println("more shit" + reply.toString());
-			//System.out.println("username: "+ App.getCurrentUsername());
 			String[] rooms = JSONHelper.getStringArrayFromJsonListString(sub);
 			list = Arrays.asList(rooms);
 			list = new ArrayList<>(list);
 			return list;
 		} else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
-		
 		return null;	
 	}
 	
 	public List<RoomDTO> getRoomDTOList(String username) throws IOException {
 		List<String> keyList = getUserRoomKeyList(username);
-		//System.out.println("getUserRoomTitleList keyList:"+keyList.toString());
 		List<RoomDTO> nameList = new ArrayList<>();
 		BufferedReader in;
 		String response;
@@ -120,7 +105,6 @@ public class RoomController implements IRoomController {
 				nameList.add(JSONHelper.jsonToRoomDTO(reply));
 			} else System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		}
-		//in.close();
 		return nameList;
 	}
 	

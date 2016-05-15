@@ -86,13 +86,17 @@ public class QuestionController implements IQuestionController {
 
 	@Override
 	public void updateQuestion(QuestionDTO q) {
-		// TODO Auto-generated method stub
+		/*
+		 * Work in progress
+		 */
 		
 	}
 
 	@Override
 	public void createQuestion(QuestionDTO q) {
-		// TODO Auto-generated method stub
+		/*
+		 * Work in progress
+		 */
 		
 	}
 	

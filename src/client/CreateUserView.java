@@ -11,11 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-//import functionality.CreateUserFunc;
 
 public class CreateUserView extends JPanel implements ActionListener {
-	
-	//CreateUserFunc createuserfunc = new CreateUserFunc();
 	
 	private static final long serialVersionUID = 1L;
 	public JPanel createUserPanel;
@@ -86,7 +83,6 @@ public class CreateUserView extends JPanel implements ActionListener {
 		btnPanel.add(btnCreate);
 		btnPanel.add(btnExit);
 	
-		//Alt der skal bruges er et username og et password, saa er brugeren oprettet
 	}
 	
 	@Override
@@ -122,13 +118,8 @@ public class CreateUserView extends JPanel implements ActionListener {
 			System.out.println(getFirstname);
 			System.out.println(getLastname);
 			
-			/*
-			 * insert if-statement to determine if user was created or not
-			 */
-			
 			JOptionPane.showMessageDialog(createUserPanel, "User successfully created");
 			
-			//createuserfunc.createUser();
 		}
 		
 	}

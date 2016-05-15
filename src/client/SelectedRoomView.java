@@ -131,7 +131,7 @@ public class SelectedRoomView implements ActionListener {
 		
 		if(cmd.equals("Create event")){
 			/*
-			 * do stuff
+			 * Work in progress
 			 */
 		}
 	}

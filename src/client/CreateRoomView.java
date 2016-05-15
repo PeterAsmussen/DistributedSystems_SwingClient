@@ -100,10 +100,7 @@ public class CreateRoomView extends JPanel implements ActionListener {
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
-			
-			
-//			roomname = txtRoomName.getText().toString();
-//			createroomfunc.createRoom();
+
 			homescreen = new HomeScreenView();
 			MainWindow.frame.getContentPane().add(homescreen.homeScreenPanel);
 			

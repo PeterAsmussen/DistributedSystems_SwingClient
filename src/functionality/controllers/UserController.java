@@ -38,19 +38,14 @@ public class UserController {
 		try {
 			reply = (JSONObject) parser.parse(in.readLine());
 			if(App.isReplySuccessful(reply)) {
-				//System.out.println("----->"+reply.toString());
 				App.sessionKey = reply.get("SESSIONKEY").toString();
-				// f� user ud fra navn
 				JSONObject obj = JSONHelper.getUserJSON(username);
 				c = App.getHttpConnectionFromObject(obj);
 				in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 				reply = (JSONObject) parser.parse(in.readLine());
 				reply = (JSONObject) parser.parse(reply.get("USER").toString());
-				//System.out.println("###>"+reply.toString());
-				
 				user = JSONHelper.jsonToUserDTO(reply);
 				App.currentUser = user;
-				//System.out.println("Aaa"+ App.getCurrentUsername());
 				return user;
 			} System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		} catch (ParseException e) {
@@ -75,22 +70,16 @@ public class UserController {
 		try {
 			String replyString = in.readLine();
 			System.out.println(replyString);
-			//reply = (JSONObject) parser.parse(in.readLine());
 			reply = (JSONObject) parser.parse(replyString);
 			if(App.isReplySuccessful(reply)) {
-				//System.out.println("----->"+reply.toString());
 				App.sessionKey = reply.get("SESSIONKEY").toString();
-				// f� user ud fra navn
 				JSONObject obj = JSONHelper.getUserJSON(username);
 				c = App.getHttpConnectionFromObject(obj);
 				in = new BufferedReader(new InputStreamReader(c.getInputStream()));
 				reply = (JSONObject) parser.parse(in.readLine());
 				reply = (JSONObject) parser.parse(reply.get("USER").toString());
-				//System.out.println("###>"+reply.toString());
-				
 				user = JSONHelper.jsonToUserDTO(reply);
 				App.currentUser = user;
-				//System.out.println("Aaa"+ App.getCurrentUsername());
 				return user;
 			} System.err.println("JSONObjektet indeholdt ikke \"REPLY\":\"succes\"");
 		} catch (ParseException e) {

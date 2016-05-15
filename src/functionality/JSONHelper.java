@@ -28,7 +28,6 @@ public class JSONHelper {
 			List<String> subbedList = Arrays.asList(getStringArrayFromJsonListString(subbed));
 			subbedList = new ArrayList<>(subbedList);
 			return new UserDTO(username, email, firstname, lastname, password, subbedList);
-			// Kan man bare caste subbedrooms til en List?
 		} return null;
 	}
 	
